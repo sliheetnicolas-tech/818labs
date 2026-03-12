@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>818 Labs — Premium Research Peptides</title>
+  <meta name="description" content="818 Labs is a top supplier of research-use-only peptides. High purity, lab tested, fast shipping. Trusted by researchers nationwide.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <span>RESEARCH-GRADE PEPTIDES — TRUSTED BY SCIENTISTS! &nbsp;&nbsp;|&nbsp;&nbsp; FREE SAME DAY SHIPPING $250+ &nbsp;&nbsp;|&nbsp;&nbsp; Products are for Research Use Only</span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="818 Labs">
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="shop.html">Shop</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+      <div class="nav-right">
+        <div class="cart-icon" onclick="toggleCart()">
+          🛒
+          <span class="cart-count" style="display:none;">0</span>
+        </div>
+        <div class="hamburger" onclick="document.querySelector('.nav').classList.toggle('open')">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">FREE SHIPPING $250+</div>
+      <h1>High Quality, Lab Tested,<br>Research Peptides.</h1>
+      <p>All products offered by 818 Labs are intended strictly for research and laboratory use only. They are not for human consumption, medical use, or diagnostic purposes. These compounds are supplied exclusively to qualified professionals, institutions, and laboratories engaged in scientific research.</p>
+      <div class="hero-buttons">
+        <a href="#learn" class="btn btn-outline">Learn More</a>
+        <a href="shop.html" class="btn btn-primary">Shop Now!</a>
+      </div>
+      <p class="hero-note">All orders placed before 1PM PST ship the same day.</p>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="container">
+      <div class="trust-item">
+        <span class="icon">🔬</span>
+        <span>3rd-Party Lab Tested</span>
+      </div>
+      <div class="trust-item">
+        <span class="icon">✅</span>
+        <span>>99% Purity Guaranteed</span>
+      </div>
+      <div class="trust-item">
+        <span class="icon">🚚</span>
+        <span>Same Day Shipping</span>
+      </div>
+      <div class="trust-item">
+        <span class="icon">🔒</span>
+        <span>Secure Checkout</span>
+      </div>
+      <div class="trust-item">
+        <span class="icon">💬</span>
+        <span>Full Customer Support</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEST SELLERS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Thousands of Clients Worldwide</div>
+        <h2>Our Best Sellers</h2>
+        <p>Buy More, Save More. Free shipping on orders $250+.</p>
+      </div>
+      <div class="product-grid" id="bestSellers"></div>
+      <div style="text-align:center;margin-top:40px;">
+        <a href="shop.html" class="btn btn-outline">View All Products</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT PREVIEW -->
+  <section class="section about-section" id="learn">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content">
+          <div class="section-label">About Us</div>
+          <h2>Premium Research Peptides You Can Trust, 3rd-Party Tested with >99% Purity.</h2>
+          <p>818 Labs is a top supplier of research-use-only peptides, committed to delivering exceptional quality at competitive prices. Our compounds are tested for purity to meet the highest standards consistently.</p>
+          <p>We pride ourselves on fast, reliable shipping — with orders being shipped the same day. We are trusted by researchers nationwide to provide high quality research peptides.</p>
+          <a href="about.html" class="btn btn-outline" style="margin-top:16px;">Learn More</a>
+        </div>
+        <div class="about-stats">
+          <div class="stat-item">
+            <span class="number">99%+</span>
+            <span class="label">Purity Guaranteed</span>
+          </div>
+          <div class="stat-item">
+            <span class="number">1000+</span>
+            <span class="label">Satisfied Researchers</span>
+          </div>
+          <div class="stat-item">
+            <span class="number">Same Day</span>
+            <span class="label">Shipping Available</span>
+          </div>
+          <div class="stat-item">
+            <span class="number">30+</span>
+            <span class="label">Research Compounds</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYMENT METHODS -->
+  <section class="section payment-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Flexible Payments</div>
+        <h2>We Accept Multiple Payment Methods</h2>
+        <p>Choose the payment method that works best for you.</p>
+      </div>
+      <div class="payment-grid">
+        <div class="payment-card">
+          <div class="icon">💰</div>
+          <h3>Cryptocurrency</h3>
+          <p>Bitcoin, Ethereum, USDT accepted. Enjoy a 5% discount on all crypto payments.</p>
+        </div>
+        <div class="payment-card">
+          <div class="icon">🏦</div>
+          <h3>Zelle</h3>
+          <p>Fast bank-to-bank transfers via Zelle. Payment details provided at checkout.</p>
+        </div>
+        <div class="payment-card">
+          <div class="icon">🅿️</div>
+          <h3>PayPal</h3>
+          <p>Secure payments with PayPal buyer protection. Guest checkout available.</p>
+        </div>
+        <div class="payment-card">
+          <div class="icon">💳</div>
+          <h3>Credit / Debit Card</h3>
+          <p>Visa, Mastercard, Amex accepted through our secured payment gateway.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ PREVIEW -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">FAQ's</div>
+        <h2>Here's What You Should Know</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">What are research peptides, and how are they used? <span class="icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Research peptides are chemical compounds designed strictly for scientific and laboratory research. They are not intended for human or veterinary use and are typically used in preclinical experiments, academic studies, or product development testing.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Are your peptides tested for purity? <span class="icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes. All 818 Labs peptides undergo independent third-party testing to verify purity, consistency, and quality. We provide Certificates of Analysis (COAs) with each batch for complete transparency.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Are your products legal to purchase? <span class="icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Our products are legal to purchase in the United States, Canada, Europe, and the UK for research use only. It is the buyer's responsibility to ensure compliance with local, state, and provincial regulations.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Who can order from 818 Labs? <span class="icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">We sell only to qualified researchers, laboratories, and institutions. Orders from individuals for personal or recreational use will not be accepted. You must be 18 years or older to place an order.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">What payment methods do you accept? <span class="icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">We accept cryptocurrency (BTC, ETH, USDT), Zelle, PayPal, and major credit/debit cards (Visa, Mastercard, Amex). Crypto payments receive a 5% discount.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner">
+        <div class="section-label">Trusted By Thousands of Researchers</div>
+        <h2>We Want You to Third-Party Test Our Products.</h2>
+        <p>99%+ Purity is always guaranteed. We will offer credit for testing our products.</p>
+        <a href="shop.html" class="btn btn-primary">Shop Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="818 Labs" style="height:40px;">
+          </a>
+          <p>818 Labs is a top supplier of research-use-only peptides, committed to delivering exceptional quality at competitive prices. Our compounds are tested for purity to meet the highest standards consistently.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="refund.html">Refund & Return</a></li>
+            <li><a href="shipping.html">Shipping Policy</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms & Conditions</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Get in Touch</h4>
+          <p>📧 <a href="mailto:support@818labs.com">support@818labs.com</a></p>
+          <p>📍 United States</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 818 Labs. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FDA DISCLAIMER -->
+  <div class="fda-disclaimer">
+    <div class="container" style="text-align:center;">
+      <h4>FDA Disclaimer</h4>
+      <p>The statements made within this website have not been evaluated by the US Food and Drug Administration. The statements and the products of this company are not intended to diagnose, treat, cure or prevent any disease. All products are for laboratory developmental research USE ONLY. Products are not for human consumption.</p>
+      <p>818 Labs is a chemical supplier. 818 Labs is not a compounding pharmacy or chemical compounding facility as defined under 503A of the Federal Food, Drug, and Cosmetic Act. 818 Labs is not an outsourcing facility as defined under 503B of the Federal Food, Drug, and Cosmetic Act.</p>
+      <p class="caps">THE PRODUCTS WE OFFER ARE NOT INTENDED FOR HUMAN USE. THEY ARE INTENDED FOR IN-VITRO AND PRE-CLINICAL RESEARCH PURPOSES ONLY. THE CUSTOMER ACKNOWLEDGES THAT THERE ARE RISKS IN THE HANDLING, USE, AND DISTRIBUTION OF THESE PRODUCTS, AND CERTIFIES THAT IT HAS THE PROPER EQUIPMENT, FACILITIES, AND PERSONNEL FOR MANAGING THOSE RISKS; AND THE CUSTOMER KNOWINGLY ACCEPTS THESE RISKS.</p>
+    </div>
+  </div>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay"></div>
+  <div class="cart-sidebar">
+    <div class="cart-header">
+      <h3>🛒 Your Cart</h3>
+      <button class="cart-close">&times;</button>
+    </div>
+    <div class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span class="amount">$0.00</span>
+      </div>
+      <a href="checkout.html" class="btn-checkout">Proceed to Checkout</a>
+    </div>
+  </div>
+
+  <script src="js/products.js?v=2"></script>
+  <script src="js/app.js?v=3"></script>
+  <script>
+    // Render best sellers on home page (first 8)
+    renderProducts('bestSellers', 'all', 8);
+  </script>
+</body>
+</html>

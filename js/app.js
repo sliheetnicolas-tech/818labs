@@ -1,0 +1,436 @@
+// ============================================
+// 818 LABS - Main Application JS
+// ============================================
+
+// --- CART STATE ---
+let cart = JSON.parse(localStorage.getItem('818labs-cart') || '[]');
+
+function saveCart() {
+  localStorage.setItem('818labs-cart', JSON.stringify(cart));
+  updateCartUI();
+}
+
+function addToCart(productId, variantLabel, qty = 1) {
+  const product = PRODUCTS.find(p => p.id === productId);
+  if (!product) return;
+
+  let price, name;
+  if (variantLabel && product.variants) {
+    const variant = product.variants.find(v => v.label === variantLabel);
+    if (!variant) return;
+    price = variant.price;
+    name = `${product.name} - ${variant.label}`;
+  } else {
+    price = product.price;
+    name = product.name;
+  }
+
+  const existing = cart.find(item => item.id === productId && item.variant === variantLabel);
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({ id: productId, variant: variantLabel || null, name, price, qty });
+  }
+
+  saveCart();
+  showToast(`${name} added to cart`);
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  saveCart();
+}
+
+function updateQty(index, delta) {
+  cart[index].qty += delta;
+  if (cart[index].qty <= 0) {
+    cart.splice(index, 1);
+  }
+  saveCart();
+}
+
+function getCartTotal() {
+  return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+}
+
+function getCartCount() {
+  return cart.reduce((sum, item) => sum + item.qty, 0);
+}
+
+// --- CART UI ---
+function updateCartUI() {
+  // Update cart count badges
+  document.querySelectorAll('.cart-count').forEach(el => {
+    const count = getCartCount();
+    el.textContent = count;
+    el.style.display = count > 0 ? 'flex' : 'none';
+  });
+
+  // Update sidebar
+  const cartItemsEl = document.querySelector('.cart-items');
+  const cartFooter = document.querySelector('.cart-footer');
+  if (!cartItemsEl) return;
+
+  if (cart.length === 0) {
+    cartItemsEl.innerHTML = '<div class="cart-empty"><p>Your cart is empty</p></div>';
+    if (cartFooter) cartFooter.style.display = 'none';
+    return;
+  }
+
+  if (cartFooter) cartFooter.style.display = 'block';
+
+  cartItemsEl.innerHTML = cart.map((item, i) => `
+    <div class="cart-item">
+      <div class="cart-item-image">
+        <div style="font-size:1.5rem;">🧪</div>
+      </div>
+      <div class="cart-item-details">
+        <h4>${item.name}</h4>
+        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+        <div class="cart-item-qty">
+          <button onclick="updateQty(${i}, -1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="updateQty(${i}, 1)">+</button>
+        </div>
+        <button class="cart-item-remove" onclick="removeFromCart(${i})">Remove</button>
+      </div>
+    </div>
+  `).join('');
+
+  // Update total
+  const totalEl = document.querySelector('.cart-total .amount');
+  if (totalEl) totalEl.textContent = `$${getCartTotal().toFixed(2)}`;
+
+  // Update checkout page if present
+  updateCheckoutSummary();
+}
+
+function toggleCart() {
+  document.querySelector('.cart-overlay')?.classList.toggle('open');
+  document.querySelector('.cart-sidebar')?.classList.toggle('open');
+}
+
+// --- TOAST ---
+function showToast(message) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `<span class="toast-icon">✓</span> ${message}`;
+  document.body.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 2500);
+  });
+}
+
+// --- PRODUCT RENDERING ---
+function getDisplayPrice(product) {
+  if (product.variants && product.variants.length > 0) {
+    const prices = product.variants.map(v => v.price);
+    const min = Math.min(...prices);
+    const max = Math.max(...prices);
+    if (min === max) return `$${min.toFixed(2)}`;
+    return `$${min.toFixed(2)} – $${max.toFixed(2)}`;
+  }
+  return `$${product.price.toFixed(2)}`;
+}
+
+function renderProductCard(product) {
+  const hasVariants = product.variants && product.variants.length > 0;
+  const displayPrice = getDisplayPrice(product);
+
+  let badgeHTML = '';
+  if (product.badge === 'sale') {
+    badgeHTML = '<div class="badge">Sale!</div>';
+  } else if (product.badge === 'best-seller') {
+    badgeHTML = '<div class="badge best-seller">Best Seller</div>';
+  } else if (product.onSale) {
+    badgeHTML = '<div class="badge">Sale!</div>';
+  }
+
+  let priceHTML = `<span class="price">${displayPrice}</span>`;
+  if (product.originalPrice && !hasVariants) {
+    priceHTML = `<span class="original-price">$${product.originalPrice.toFixed(2)}</span> <span class="price">$${product.price.toFixed(2)}</span>`;
+  }
+
+  const addToCartBtn = hasVariants
+    ? `<a href="product.html?id=${product.id}" class="btn-add-cart">Select Options</a>`
+    : `<button class="btn-add-cart" onclick="event.stopPropagation(); addToCart('${product.id}')">Add to Cart</button>`;
+
+  return `
+    <div class="product-card" onclick="window.location='product.html?id=${product.id}'">
+      ${badgeHTML}
+      <div class="product-image">
+        <img src="images/products/${product.id}.svg" alt="${product.name}" loading="lazy">
+      </div>
+      <div class="product-info">
+        <h3>${product.name}</h3>
+        ${product.subtitle ? `<div class="product-desc">${product.subtitle}</div>` : ''}
+        <div class="product-pricing">${priceHTML}</div>
+        <div class="product-actions">
+          ${addToCartBtn}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderProducts(containerId, filter = 'all', limit = null) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  let filtered = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === filter);
+  if (limit) filtered = filtered.slice(0, limit);
+
+  container.innerHTML = filtered.map(p => renderProductCard(p)).join('');
+}
+
+// --- PRODUCT DETAIL ---
+function renderProductDetail() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const product = PRODUCTS.find(p => p.id === id);
+
+  if (!product) {
+    const detailEl = document.querySelector('.product-detail');
+    if (detailEl) detailEl.innerHTML = '<div class="container"><h2>Product not found</h2><p><a href="shop.html">Back to shop</a></p></div>';
+    return;
+  }
+
+  document.title = `${product.name} — 818 Labs`;
+
+  const hasVariants = product.variants && product.variants.length > 0;
+  const defaultPrice = hasVariants ? product.variants[0].price : product.price;
+
+  let variantHTML = '';
+  if (hasVariants) {
+    variantHTML = `
+      <div class="variant-select">
+        <label>Select Size</label>
+        <select id="variantSelect" onchange="updateDetailPrice()">
+          ${product.variants.map(v => `<option value="${v.label}" data-price="${v.price}">${v.label} — $${v.price.toFixed(2)}</option>`).join('')}
+        </select>
+      </div>
+    `;
+  }
+
+  let priceHTML = `<span>$${defaultPrice.toFixed(2)}</span>`;
+  if (product.originalPrice && !hasVariants) {
+    priceHTML = `<span>$${product.price.toFixed(2)}</span><span class="original">$${product.originalPrice.toFixed(2)}</span>`;
+  }
+
+  const specsHTML = Object.entries(product.specs).map(([key, val]) => `
+    <div class="spec-row"><dt>${key.charAt(0).toUpperCase() + key.slice(1)}:</dt> <dd>${val}</dd></div>
+  `).join('');
+
+  const container = document.querySelector('.product-detail .container');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="product-detail-grid">
+      <div class="product-detail-image">
+        <img src="images/products/${product.id}.svg" alt="${product.name}" style="max-height:320px;">
+      </div>
+      <div class="product-detail-info">
+        <h1>${product.name}</h1>
+        ${product.subtitle ? `<div class="subtitle">${product.subtitle}</div>` : ''}
+        <div class="detail-price" id="detailPrice">${priceHTML}</div>
+        <p style="color:var(--text-secondary);margin-bottom:20px;">${product.description}. For in vitro research use only.</p>
+
+        <div class="product-specs">
+          <h3 style="margin-bottom:12px;font-size:1rem;">Specifications</h3>
+          ${specsHTML}
+        </div>
+
+        ${variantHTML}
+
+        <div class="qty-selector">
+          <button onclick="changeQty(-1)">−</button>
+          <input type="number" id="qtyInput" value="1" min="1" max="99" readonly>
+          <button onclick="changeQty(1)">+</button>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;text-align:center;" onclick="addDetailToCart()">Add to Cart</button>
+
+        <div class="detail-notice">
+          <p><strong>Research Use Only.</strong> This product is intended for in vitro research by qualified professionals only. Not for human consumption. By purchasing, you affirm you are a qualified researcher.</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function changeQty(delta) {
+  const input = document.getElementById('qtyInput');
+  if (!input) return;
+  let val = parseInt(input.value) + delta;
+  if (val < 1) val = 1;
+  if (val > 99) val = 99;
+  input.value = val;
+}
+
+function updateDetailPrice() {
+  const select = document.getElementById('variantSelect');
+  if (!select) return;
+  const price = parseFloat(select.selectedOptions[0].dataset.price);
+  document.getElementById('detailPrice').innerHTML = `<span>$${price.toFixed(2)}</span>`;
+}
+
+function addDetailToCart() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const qty = parseInt(document.getElementById('qtyInput')?.value || 1);
+  const select = document.getElementById('variantSelect');
+  const variant = select ? select.value : null;
+  addToCart(id, variant, qty);
+}
+
+// --- FILTER BAR ---
+function initFilters() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProducts('productGrid', btn.dataset.filter);
+    });
+  });
+}
+
+// --- FAQ ---
+function initFAQ() {
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const wasActive = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+      if (!wasActive) item.classList.add('active');
+    });
+  });
+}
+
+// --- MOBILE NAV ---
+function initMobileNav() {
+  const hamburger = document.querySelector('.hamburger');
+  const nav = document.querySelector('.nav');
+  if (hamburger && nav) {
+    hamburger.addEventListener('click', () => nav.classList.toggle('open'));
+  }
+}
+
+// --- CHECKOUT ---
+function updateCheckoutSummary() {
+  const summaryEl = document.getElementById('orderSummary');
+  if (!summaryEl) return;
+
+  if (cart.length === 0) {
+    summaryEl.innerHTML = '<p style="color:var(--text-muted);">Your cart is empty. <a href="shop.html">Shop now</a></p>';
+    return;
+  }
+
+  const linesHTML = cart.map(item => `
+    <div class="order-line">
+      <div>
+        <div class="item-name">${item.name}</div>
+        <div class="item-qty">Qty: ${item.qty}</div>
+      </div>
+      <div class="item-price">$${(item.price * item.qty).toFixed(2)}</div>
+    </div>
+  `).join('');
+
+  const subtotal = getCartTotal();
+  const shipping = subtotal >= 250 ? 0 : 15.00;
+  const total = subtotal + shipping;
+
+  summaryEl.innerHTML = `
+    <h3>Order Summary</h3>
+    ${linesHTML}
+    <div class="order-totals">
+      <div class="total-row">
+        <span>Subtotal</span>
+        <span>$${subtotal.toFixed(2)}</span>
+      </div>
+      <div class="total-row">
+        <span>Shipping</span>
+        <span>${shipping === 0 ? 'FREE' : '$' + shipping.toFixed(2)}</span>
+      </div>
+      <div class="total-row grand-total">
+        <span>Total</span>
+        <span class="amount">$${total.toFixed(2)}</span>
+      </div>
+    </div>
+  `;
+}
+
+// --- PAYMENT METHOD SELECTION ---
+function initPaymentMethods() {
+  const options = document.querySelectorAll('.payment-method-option');
+  const instructions = document.getElementById('paymentInstructions');
+  if (!options.length) return;
+
+  const instructionText = {
+    crypto: `<h4>💰 Cryptocurrency Payment</h4><p>We accept Bitcoin (BTC), Ethereum (ETH), and USDT (TRC-20 & ERC-20). After placing your order, you will receive a wallet address and QR code via email. Payment must be confirmed within 30 minutes. A 5% discount is automatically applied for crypto payments.</p>`,
+    zelle: `<h4>🏦 Zelle Payment</h4><p>Send payment via Zelle after placing your order. You will receive our Zelle payment details via email with your order confirmation. Please include your order number in the memo. Orders are processed after payment confirmation.</p>`,
+    paypal: `<h4>🅿️ PayPal Payment</h4><p>Pay securely using your PayPal account or PayPal guest checkout. You will be redirected to PayPal to complete your payment after placing the order. Buyer protection included.</p>`,
+    card: `<h4>💳 Credit / Debit Card</h4><p>We accept Visa, Mastercard, and American Express through our secured payment gateway. All transactions are encrypted with 256-bit SSL. Your card details are never stored on our servers.</p>`
+  };
+
+  options.forEach(opt => {
+    opt.addEventListener('click', () => {
+      options.forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      if (instructions) {
+        instructions.innerHTML = instructionText[opt.dataset.method] || '';
+        instructions.style.display = 'block';
+      }
+    });
+  });
+}
+
+// --- PLACE ORDER ---
+function placeOrder(e) {
+  e.preventDefault();
+  const method = document.querySelector('.payment-method-option.selected');
+  if (!method) {
+    showToast('Please select a payment method');
+    return;
+  }
+  if (cart.length === 0) {
+    showToast('Your cart is empty');
+    return;
+  }
+
+  // In production this would submit to a backend
+  const orderNum = 'ORD-' + Date.now().toString(36).toUpperCase();
+  showToast(`Order ${orderNum} placed! Check your email for payment instructions.`);
+
+  // Clear cart
+  cart = [];
+  saveCart();
+
+  // Redirect after delay
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 3000);
+}
+
+// --- INIT ---
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartUI();
+  initMobileNav();
+  initFAQ();
+  initFilters();
+  initPaymentMethods();
+
+  // Cart overlay close
+  document.querySelector('.cart-overlay')?.addEventListener('click', toggleCart);
+  document.querySelector('.cart-close')?.addEventListener('click', toggleCart);
+
+  // Checkout form
+  document.getElementById('checkoutForm')?.addEventListener('submit', placeOrder);
+});

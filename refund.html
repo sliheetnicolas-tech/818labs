@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Refund & Return Policy — 818 Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+  <div class="top-bar"><span>818 LABS — Research-Grade Peptides</span></div>
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="818 Labs"></a>
+      <nav class="nav">
+        <a href="index.html">Home</a><a href="about.html">About Us</a><a href="shop.html">Shop</a><a href="faq.html">FAQ</a><a href="contact.html">Contact Us</a>
+      </nav>
+      <div class="nav-right">
+        <div class="cart-icon" onclick="toggleCart()">🛒<span class="cart-count" style="display:none;">0</span></div>
+        <div class="hamburger" onclick="document.querySelector('.nav').classList.toggle('open')"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="legal-page">
+    <h1>Refund & Return Policy</h1>
+
+    <p>At 818 Labs, the integrity, safety, and purity of our products are our top priorities. As all of our compounds are intended strictly for research use only and are highly sensitive in nature, we maintain a strict <strong>no refund and no return policy</strong>.</p>
+
+    <p><strong>All sales are final.</strong> We do not offer refunds or accept returns for any reason, including ordering errors, change of mind, or misuse. This policy helps us maintain quality control and ensures that all customers receive products that meet our rigorous standards.</p>
+
+    <h2>Damaged, Defective, or Incorrect Orders</h2>
+    <p>However, if your order arrives damaged, defective, or you receive the wrong item, you must notify us within <strong>48 hours of delivery</strong> at <a href="mailto:support@818labs.com">support@818labs.com</a>. Please include:</p>
+    <ul>
+      <li>Your order number</li>
+      <li>A detailed description of the issue</li>
+      <li>Clear photos of the damaged/incorrect product</li>
+    </ul>
+    <p>Our support team will review your case and determine eligibility for a replacement.</p>
+
+    <h2>Refund Eligibility</h2>
+    <p>Refunds will only be considered in rare cases where:</p>
+    <ul>
+      <li>The order was never delivered due to an error on our part</li>
+      <li>A replacement is not possible and the issue was reported within the required 48-hour timeframe</li>
+    </ul>
+
+    <p>We <strong>do not refund or replace</strong> items that have been opened, used, or returned without prior authorization.</p>
+
+    <h2>Contact</h2>
+    <p>For any concerns or assistance regarding your order, please contact our support team at:</p>
+    <p>Email: <a href="mailto:support@818labs.com">support@818labs.com</a></p>
+
+    <p style="margin-top:40px;color:var(--text-muted);font-size:0.85rem;"><em>Last updated: March 2026</em></p>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom"><p>&copy; 2026 818 Labs. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay"></div>
+  <div class="cart-sidebar"><div class="cart-header"><h3>🛒 Your Cart</h3><button class="cart-close">&times;</button></div><div class="cart-items"></div><div class="cart-footer"><div class="cart-total"><span>Total</span><span class="amount">$0.00</span></div><a href="checkout.html" class="btn-checkout">Proceed to Checkout</a></div></div>
+  <script src="js/products.js?v=2"></script>
+  <script src="js/app.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+<defs>
+  <!-- Background -->
+  <radialGradient id="rbgtb50010mg" cx="50%" cy="45%" r="65%">
+    <stop offset="0%" stop-color="#141e30"/>
+    <stop offset="100%" stop-color="#0a0f1a"/>
+  </radialGradient>
+  
+  <!-- Glass body gradient -->
+  <linearGradient id="glasstb50010mg" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#b8c5d4" stop-opacity="0.35"/>
+    <stop offset="15%" stop-color="#e8edf2" stop-opacity="0.12"/>
+    <stop offset="35%" stop-color="#f8fafc" stop-opacity="0.06"/>
+    <stop offset="50%" stop-color="#f8fafc" stop-opacity="0.04"/>
+    <stop offset="65%" stop-color="#f8fafc" stop-opacity="0.06"/>
+    <stop offset="85%" stop-color="#e8edf2" stop-opacity="0.12"/>
+    <stop offset="100%" stop-color="#b8c5d4" stop-opacity="0.3"/>
+  </linearGradient>
+  
+  <!-- Glass inner shine -->
+  <linearGradient id="shinetb50010mg" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="white" stop-opacity="0"/>
+    <stop offset="18%" stop-color="white" stop-opacity="0.25"/>
+    <stop offset="22%" stop-color="white" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="white" stop-opacity="0"/>
+  </linearGradient>
+
+  <!-- Liquid -->
+  <linearGradient id="liqtb50010mg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#dbeafe" stop-opacity="0.2"/>
+    <stop offset="40%" stop-color="#60a5fa" stop-opacity="0.12"/>
+    <stop offset="100%" stop-color="#60a5fa" stop-opacity="0.25"/>
+  </linearGradient>
+  
+  <!-- Flip-off cap -->
+  <linearGradient id="captb50010mg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#2563eb" stop-opacity="0.95"/>
+    <stop offset="40%" stop-color="#2563eb"/>
+    <stop offset="100%" stop-color="#2563eb" stop-opacity="0.8"/>
+  </linearGradient>
+  <linearGradient id="caphitb50010mg" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="white" stop-opacity="0"/>
+    <stop offset="25%" stop-color="white" stop-opacity="0.25"/>
+    <stop offset="50%" stop-color="white" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="white" stop-opacity="0"/>
+  </linearGradient>
+  
+  <!-- Aluminum crimp -->
+  <linearGradient id="crimptb50010mg" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#a0a8b0"/>
+    <stop offset="20%" stop-color="#d4dae0"/>
+    <stop offset="40%" stop-color="#c8cfd6"/>
+    <stop offset="60%" stop-color="#d8dee4"/>
+    <stop offset="80%" stop-color="#c0c8d0"/>
+    <stop offset="100%" stop-color="#a0a8b0"/>
+  </linearGradient>
+
+  <!-- Label -->
+  <linearGradient id="lbltb50010mg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#fcfcfc"/>
+    <stop offset="100%" stop-color="#f2f2f2"/>
+  </linearGradient>
+  
+  <!-- Shadows & filters -->
+  <filter id="vshadowtb50010mg">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+    <feOffset dy="8"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="ishadowtb50010mg">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
+    <feOffset dy="1"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.15"/></feComponentTransfer>
+    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+
+  <clipPath id="vcliptb50010mg">
+    <rect x="116" y="115" width="68" height="180" rx="4"/>
+  </clipPath>
+</defs>
+
+<!-- Background -->
+<rect width="300" height="400" fill="url(#rbgtb50010mg)"/>
+
+<!-- Subtle floor reflection -->
+<ellipse cx="150" cy="340" rx="60" ry="12" fill="white" opacity="0.02"/>
+<ellipse cx="150" cy="338" rx="45" ry="6" fill="#60a5fa" opacity="0.04"/>
+
+<!-- Main vial group -->
+<g filter="url(#vshadowtb50010mg)">
+  
+  <!-- === FLIP-OFF CAP === -->
+  <rect x="134" y="87" width="32" height="22" rx="4" fill="url(#captb50010mg)"/>
+  <rect x="134" y="87" width="32" height="22" rx="4" fill="url(#caphitb50010mg)"/>
+  <!-- Cap top highlight -->
+  <rect x="136" y="89" width="28" height="3" rx="1.5" fill="white" opacity="0.2"/>
+  <!-- Cap ridge lines -->
+  <line x1="136" y1="106" x2="164" y2="106" stroke="black" stroke-opacity="0.15" stroke-width="0.5"/>
+
+  <!-- === ALUMINUM CRIMP === -->
+  <rect x="115" y="109" width="70" height="10" rx="2" fill="url(#crimptb50010mg)"/>
+  <!-- Crimp texture lines -->
+  <line x1="120" y1="110" x2="120" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
+  <line x1="128" y1="110" x2="128" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
+  <line x1="136" y1="110" x2="136" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
+  <line x1="144" y1="110" x2="144" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
+  <line x1="152" y1="110" x2="152" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
+  <line x1="160" y1="110" x2="160" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
+  <line x1="168" y1="110" x2="168" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
+  <line x1="176" y1="110" x2="176" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
+  <!-- Crimp bottom edge -->
+  <rect x="116" y="114" width="68" height="2" rx="1" fill="#b0b8c0"/>
+
+  <!-- === GLASS BODY === -->
+  <rect x="116" y="115" width="68" height="180" rx="4" fill="url(#glasstb50010mg)" stroke="white" stroke-opacity="0.08" stroke-width="0.5"/>
+  
+  <!-- Liquid fill (clipped to vial) -->
+  <g clip-path="url(#vcliptb50010mg)">
+    <rect x="116" y="178" width="68" height="118.4" fill="url(#liqtb50010mg)"/>
+    <!-- Liquid surface meniscus -->
+    <ellipse cx="150" cy="178" rx="32" ry="3" fill="#60a5fa" opacity="0.08"/>
+  </g>
+  
+  <!-- Glass shine (left edge) -->
+  <rect x="116" y="115" width="68" height="180" rx="4" fill="url(#shinetb50010mg)"/>
+  
+  <!-- Secondary reflection (right) -->
+  <rect x="172" y="120" width="4" height="165" rx="2" fill="white" opacity="0.06"/>
+  
+  <!-- Edge highlight left -->
+  <rect x="118" y="123" width="1.5" height="160" rx="0.75" fill="white" opacity="0.12"/>
+
+  <!-- === LABEL === -->
+  <g filter="url(#ishadowtb50010mg)">
+    <rect x="118" y="145" width="64" height="105" rx="2" fill="url(#lbltb50010mg)"/>
+    
+    <!-- Label border accent -->
+    <rect x="118" y="145" width="64" height="3" rx="1" fill="#60a5fa"/>
+    
+    <!-- 818 LABS brand -->
+    <text x="150" y="165" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="8.5" font-weight="900" fill="#111" letter-spacing="3">818 LABS</text>
+    
+    <!-- Thin divider -->
+    <line x1="128" y1="171" x2="170" y2="171" stroke="#60a5fa" stroke-width="0.8" stroke-opacity="0.6"/>
+    
+    <!-- Product name -->
+    <text x="150" y="187" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="800" fill="#2563eb">TB-500 10mg</text>
+    
+    <!-- Subtitle / blend info -->
+    
+    
+    <!-- Dosage -->
+    <text x="150" y="206" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="8" font-weight="700" fill="#444">10mg</text>
+    
+    <!-- Purity badge -->
+    <rect x="128" y="230" width="44" height="13" rx="6.5" fill="#2563eb"/>
+    <text x="150" y="239" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="6.5" font-weight="700" fill="white" letter-spacing="0.5">>99% PURE</text>
+    
+    <!-- Research use text -->
+    <text x="150" y="247" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="4" font-weight="500" fill="#999" letter-spacing="0.8">FOR RESEARCH USE ONLY</text>
+  </g>
+
+  <!-- Glass rim at bottom -->
+  <rect x="116" y="293" width="68" height="2" rx="1" fill="white" opacity="0.06"/>
+</g>
+</svg>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — 818 Labs Research Peptides</title>
+  <meta name="description" content="Browse our full catalog of research-grade peptides. 30+ compounds, >99% purity, fast shipping.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <span>RESEARCH-GRADE PEPTIDES — TRUSTED BY SCIENTISTS! &nbsp;&nbsp;|&nbsp;&nbsp; FREE SAME DAY SHIPPING $250+ &nbsp;&nbsp;|&nbsp;&nbsp; Products are for Research Use Only</span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="818 Labs">
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="shop.html" class="active">Shop</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+      <div class="nav-right">
+        <div class="cart-icon" onclick="toggleCart()">
+          🛒
+          <span class="cart-count" style="display:none;">0</span>
+        </div>
+        <div class="hamburger" onclick="document.querySelector('.nav').classList.toggle('open')">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SHOP -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Shop</h2>
+        <p>Showing all research compounds. Filter by category below.</p>
+      </div>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All Products</button>
+        <button class="filter-btn" data-filter="peptides">Peptides</button>
+        <button class="filter-btn" data-filter="capsules">Capsules</button>
+        <button class="filter-btn" data-filter="nasal-sprays">Nasal Sprays</button>
+        <button class="filter-btn" data-filter="accessories">Accessories</button>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="818 Labs" style="height:40px;">
+          </a>
+          <p>818 Labs is a top supplier of research-use-only peptides, committed to delivering exceptional quality at competitive prices.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="refund.html">Refund & Return</a></li>
+            <li><a href="shipping.html">Shipping Policy</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms & Conditions</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Get in Touch</h4>
+          <p>📧 <a href="mailto:support@818labs.com">support@818labs.com</a></p>
+          <p>📍 United States</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 818 Labs. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FDA DISCLAIMER -->
+  <div class="fda-disclaimer">
+    <div class="container" style="text-align:center;">
+      <h4>FDA Disclaimer</h4>
+      <p>The statements made within this website have not been evaluated by the US Food and Drug Administration. The statements and the products of this company are not intended to diagnose, treat, cure or prevent any disease. All products are for laboratory developmental research USE ONLY. Products are not for human consumption.</p>
+      <p>818 Labs is a chemical supplier. 818 Labs is not a compounding pharmacy or chemical compounding facility as defined under 503A of the Federal Food, Drug, and Cosmetic Act. 818 Labs is not an outsourcing facility as defined under 503B of the Federal Food, Drug, and Cosmetic Act.</p>
+      <p class="caps">THE PRODUCTS WE OFFER ARE NOT INTENDED FOR HUMAN USE. THEY ARE INTENDED FOR IN-VITRO AND PRE-CLINICAL RESEARCH PURPOSES ONLY. THE CUSTOMER ACKNOWLEDGES THAT THERE ARE RISKS IN THE HANDLING, USE, AND DISTRIBUTION OF THESE PRODUCTS, AND CERTIFIES THAT IT HAS THE PROPER EQUIPMENT, FACILITIES, AND PERSONNEL FOR MANAGING THOSE RISKS; AND THE CUSTOMER KNOWINGLY ACCEPTS THESE RISKS.</p>
+    </div>
+  </div>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay"></div>
+  <div class="cart-sidebar">
+    <div class="cart-header">
+      <h3>🛒 Your Cart</h3>
+      <button class="cart-close">&times;</button>
+    </div>
+    <div class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span class="amount">$0.00</span>
+      </div>
+      <a href="checkout.html" class="btn-checkout">Proceed to Checkout</a>
+    </div>
+  </div>
+
+  <script src="js/products.js?v=2"></script>
+  <script src="js/app.js?v=3"></script>
+  <script>
+    renderProducts('productGrid', 'all');
+  </script>
+</body>
+</html>

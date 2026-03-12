@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping Policy — 818 Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+  <div class="top-bar"><span>818 LABS — Research-Grade Peptides</span></div>
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="818 Labs"></a>
+      <nav class="nav">
+        <a href="index.html">Home</a><a href="about.html">About Us</a><a href="shop.html">Shop</a><a href="faq.html">FAQ</a><a href="contact.html">Contact Us</a>
+      </nav>
+      <div class="nav-right">
+        <div class="cart-icon" onclick="toggleCart()">🛒<span class="cart-count" style="display:none;">0</span></div>
+        <div class="hamburger" onclick="document.querySelector('.nav').classList.toggle('open')"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="legal-page">
+    <h1>Shipping Policy</h1>
+    <p>At 818 Labs, we strive to ensure your order is processed quickly and delivered reliably.</p>
+
+    <h2>Order Processing</h2>
+    <p>All orders placed before 1PM PST are shipped the same business day. Orders placed after 1PM PST or on weekends/holidays will be shipped the next business day. Once your order ships, you will receive a confirmation email with tracking details.</p>
+
+    <h2>Shipping Options & Estimated Delivery</h2>
+    <p>We offer both Standard and Expedited shipping options at checkout.</p>
+    <h3>Estimated Delivery Times:</h3>
+    <ul>
+      <li><strong>Domestic (US):</strong> 2–4 business days after dispatch</li>
+      <li><strong>Canada:</strong> 5–10 business days after dispatch</li>
+      <li><strong>International:</strong> 7–14 business days after dispatch (varies by destination)</li>
+    </ul>
+
+    <h2>Shipping Rates</h2>
+    <ul>
+      <li><strong>FREE shipping</strong> on all domestic orders over $250</li>
+      <li>Standard domestic shipping: calculated at checkout based on location</li>
+      <li>Expedited and international rates calculated at checkout</li>
+    </ul>
+
+    <h2>Packaging</h2>
+    <p>All orders are discreetly packaged in plain, unmarked boxes with no external branding. Products are shipped with appropriate insulation and cold packs when required to maintain compound integrity.</p>
+
+    <h2>Shipping Delays</h2>
+    <p>Please note, 818 Labs is not responsible for delays caused by:</p>
+    <ul>
+      <li>Customs inspections or import processing</li>
+      <li>Courier issues or disruptions</li>
+      <li>Weather or natural disasters</li>
+      <li>Incorrect shipping information provided by the customer</li>
+    </ul>
+    <p>Once an order has been shipped, responsibility for delivery lies with the carrier.</p>
+
+    <h2>Lost or Missing Packages</h2>
+    <p>If your package appears lost in transit, please contact us at <a href="mailto:support@818labs.com">support@818labs.com</a> with your order number and tracking information. We will work with the carrier to locate your shipment and, if necessary, arrange a replacement.</p>
+
+    <p style="margin-top:40px;color:var(--text-muted);font-size:0.85rem;"><em>Last updated: March 2026</em></p>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom"><p>&copy; 2026 818 Labs. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay"></div>
+  <div class="cart-sidebar"><div class="cart-header"><h3>🛒 Your Cart</h3><button class="cart-close">&times;</button></div><div class="cart-items"></div><div class="cart-footer"><div class="cart-total"><span>Total</span><span class="amount">$0.00</span></div><a href="checkout.html" class="btn-checkout">Proceed to Checkout</a></div></div>
+  <script src="js/products.js?v=2"></script>
+  <script src="js/app.js?v=3"></script>
+</body>
+</html>

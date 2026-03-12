@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions — 818 Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+  <div class="top-bar"><span>818 LABS — Research-Grade Peptides</span></div>
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="818 Labs"></a>
+      <nav class="nav">
+        <a href="index.html">Home</a><a href="about.html">About Us</a><a href="shop.html">Shop</a><a href="faq.html">FAQ</a><a href="contact.html">Contact Us</a>
+      </nav>
+      <div class="nav-right">
+        <div class="cart-icon" onclick="toggleCart()">🛒<span class="cart-count" style="display:none;">0</span></div>
+        <div class="hamburger" onclick="document.querySelector('.nav').classList.toggle('open')"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="legal-page">
+    <h1>Terms & Conditions</h1>
+
+    <h2>1. Eligibility for Use</h2>
+    <p>You must be at least 18 years old to browse or purchase from 818 Labs. By using this website, you confirm that you meet the legal age requirement and have the authority to enter into a binding agreement.</p>
+
+    <h2>2. Research Use Only Products</h2>
+    <p>All products available on 818 Labs are strictly intended for laboratory research use only. They are not for human consumption, medical treatment, or veterinary use.</p>
+    <p>By purchasing from 818 Labs, you acknowledge and agree that:</p>
+    <ul>
+      <li>You are a qualified researcher or acting on behalf of a legitimate research institution.</li>
+      <li>You fully understand the risks involved in handling research compounds.</li>
+      <li>You will not use our products for personal, diagnostic, therapeutic, or recreational purposes.</li>
+    </ul>
+
+    <h2>3. Limitation of Liability</h2>
+    <p>818 Labs is not liable for any damages, injuries, or losses arising from the misuse or mishandling of our products. All responsibility lies with the buyer upon receipt and use of the product.</p>
+
+    <h2>4. Order Acceptance & Cancellations</h2>
+    <p>We reserve the right to refuse or cancel any order at our sole discretion. Orders may be declined if misuse is suspected, shipping restrictions apply, or incorrect information is provided.</p>
+
+    <h2>5. Pricing & Payment</h2>
+    <p>All prices are listed in USD and are subject to change without prior notice. Payments are securely processed via trusted third-party gateways and direct payment methods including cryptocurrency, Zelle, PayPal, and credit/debit cards. 818 Labs does not store any payment or card details.</p>
+
+    <h2>6. Shipping & Delivery</h2>
+    <p>We aim to ship all orders the same or next business day. Shipping rates and estimated delivery times are outlined in our <a href="shipping.html">Shipping Policy</a>. 818 Labs is not responsible for delays caused by customs, carrier issues, or force majeure.</p>
+
+    <h2>7. Intellectual Property</h2>
+    <p>All content on this website, including text, images, logos, and design, is the property of 818 Labs and is protected under applicable intellectual property laws. Unauthorized reproduction, distribution, or modification is strictly prohibited.</p>
+
+    <h2>8. Indemnification</h2>
+    <p>By using our website or purchasing our products, you agree to indemnify and hold harmless 818 Labs, its owners, employees, and affiliates from any claims, damages, or expenses arising from your use or misuse of our products or services.</p>
+
+    <h2>9. Governing Law</h2>
+    <p>These terms shall be governed by and construed in accordance with the laws of the United States. Any disputes shall be resolved through binding arbitration in the state of California.</p>
+
+    <h2>10. Changes to Terms</h2>
+    <p>818 Labs reserves the right to update these Terms & Conditions at any time. Changes take effect immediately upon posting to this page. Continued use of the website constitutes acceptance of the revised terms.</p>
+
+    <p style="margin-top:40px;color:var(--text-muted);font-size:0.85rem;"><em>Last updated: March 2026</em></p>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom"><p>&copy; 2026 818 Labs. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay"></div>
+  <div class="cart-sidebar"><div class="cart-header"><h3>🛒 Your Cart</h3><button class="cart-close">&times;</button></div><div class="cart-items"></div><div class="cart-footer"><div class="cart-total"><span>Total</span><span class="amount">$0.00</span></div><a href="checkout.html" class="btn-checkout">Proceed to Checkout</a></div></div>
+  <script src="js/products.js?v=2"></script>
+  <script src="js/app.js?v=3"></script>
+</body>
+</html>
