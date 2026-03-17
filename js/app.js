@@ -450,9 +450,9 @@ function initPaymentMethods() {
   if (!options.length) return;
 
   const instructionText = {
-    crypto: `<h4>💰 Cryptocurrency Payment</h4><p>We accept Bitcoin (BTC), Ethereum (ETH), and USDT (TRC-20 & ERC-20). After placing your order, you will receive a wallet address and QR code via email. Payment must be confirmed within 30 minutes. A 5% discount is automatically applied for crypto payments.</p>`,
+    crypto: `<h4>💰 Cryptocurrency Payment</h4><p style="color:var(--text-muted);">Cryptocurrency payments are <strong>temporarily unavailable</strong>. Please select another payment method. We apologize for the inconvenience.</p>`,
     venmo: `<h4>🟦 Venmo Payment</h4><p>Send payment via Venmo after placing your order. Click the link below or search <strong>@Labs-818</strong> on Venmo. Please include your order number in the payment note.</p><p style="margin-top:12px;"><a href="https://venmo.com/Labs-818" target="_blank" rel="noopener" style="display:inline-block;background:#008CFF;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.95rem;">Pay with Venmo →</a></p><p style="margin-top:10px;font-size:0.85rem;color:var(--text-muted);">Orders are processed after payment confirmation.</p>`,
-    paypal: `<h4>🅿️ PayPal Payment</h4><p>Pay securely using your PayPal account or PayPal guest checkout. You will be redirected to PayPal to complete your payment after placing the order. Buyer protection included.</p>`,
+    paypal: `<h4>🅿️ PayPal Payment</h4><p style="color:var(--text-muted);">PayPal payments are <strong>temporarily unavailable</strong>. Please select another payment method. We apologize for the inconvenience.</p>`,
     card: `<h4>💳 Credit / Debit Card</h4><p style="color:var(--text-muted);">Credit and debit card payments are <strong>temporarily unavailable</strong>. Please select another payment method. We apologize for the inconvenience.</p>`
   };
 
