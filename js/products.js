@@ -288,52 +288,6 @@ const PRODUCTS = [
     price: 102.00
   },
 
-  // --- CAPSULES ---
-  {
-    id: "enclomiphene",
-    name: "Enclomiphene",
-    category: "capsules",
-    description: "Selective estrogen receptor modulator",
-    specs: { form: "Capsules", purity: ">99%" },
-    price: 96.00,
-    originalPrice: 122.00,
-    badge: "sale",
-    onSale: true
-  },
-  {
-    id: "mk-677",
-    name: "MK-677",
-    category: "capsules",
-    description: "Growth hormone secretagogue (oral)",
-    specs: { form: "Capsules", purity: ">99%" },
-    price: 96.00,
-    originalPrice: 122.00,
-    badge: "sale",
-    onSale: true
-  },
-  {
-    id: "rad-140",
-    name: "RAD-140",
-    category: "capsules",
-    description: "Selective androgen receptor modulator",
-    specs: { form: "Capsules", purity: ">99%" },
-    variants: [
-      { label: "30ct", price: 86.00 }
-    ],
-    originalPrice: 96.00,
-    onSale: true
-  },
-
-  // --- NASAL SPRAYS ---
-  {
-    id: "semax-selank-spray",
-    name: "Semax/Selank Nasal Spray",
-    category: "nasal-sprays",
-    description: "Nootropic nasal spray blend",
-    specs: { form: "Nasal Spray" },
-    price: 92.00
-  },
-
   // --- ACCESSORIES ---
   {
     id: "bac-water",
