@@ -300,7 +300,7 @@ function renderProductDetail() {
   }
 
   const specsHTML = Object.entries(product.specs).map(([key, val]) => `
-    <div class="spec-row"><dt>${key.charAt(0).toUpperCase() + key.slice(1)}:</dt> <dd>${val}</dd></div>
+    <div class="spec-row"><dt>${key.charAt(0).toUpperCase() + key.slice(1)}</dt><dd>${val}</dd></div>
   `).join('');
 
   const container = document.querySelector('.product-detail .container');
@@ -309,17 +309,19 @@ function renderProductDetail() {
   container.innerHTML = `
     <div class="product-detail-grid">
       <div class="product-detail-image">
-        <img src="images/products/${product.id}.png" alt="${product.name}" style="max-height:320px;" onerror="this.src='images/products/${product.id}.svg'">
+        <img src="images/products/${product.id}.png" alt="${product.name}" onerror="this.src='images/products/${product.id}.svg'">
       </div>
       <div class="product-detail-info">
         <h1>${product.name}</h1>
         ${product.subtitle ? `<div class="subtitle">${product.subtitle}</div>` : ''}
         <div class="detail-price" id="detailPrice">${priceHTML}</div>
-        <p style="color:var(--text-secondary);margin-bottom:20px;">${product.description}. For in vitro research use only.</p>
+        <p class="detail-description">${product.description}. For in vitro research use only.</p>
 
         <div class="product-specs">
-          <h3 style="margin-bottom:12px;font-size:1rem;">Specifications</h3>
-          ${specsHTML}
+          <h3>Specifications</h3>
+          <div class="specs-grid">
+            ${specsHTML}
+          </div>
         </div>
 
         ${variantHTML}
@@ -330,7 +332,7 @@ function renderProductDetail() {
           <button onclick="changeQty(1)">+</button>
         </div>
 
-        <button class="btn btn-primary" style="width:100%;text-align:center;" onclick="addDetailToCart()">Add to Cart</button>
+        <button class="btn btn-primary detail-add-btn" onclick="addDetailToCart()">Add to Cart</button>
 
         <div class="detail-notice">
           <p><strong>Research Use Only.</strong> This product is intended for in vitro research by qualified professionals only. Not for human consumption. By purchasing, you affirm you are a qualified researcher.</p>
