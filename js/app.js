@@ -394,9 +394,29 @@ function initFAQ() {
 function initMobileNav() {
   const hamburger = document.querySelector('.hamburger');
   const nav = document.querySelector('.nav');
-  if (hamburger && nav) {
-    hamburger.addEventListener('click', () => nav.classList.toggle('open'));
-  }
+  if (!hamburger || !nav) return;
+
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    nav.classList.toggle('open');
+    hamburger.classList.toggle('active');
+  });
+
+  // Close nav when a link is clicked
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      hamburger.classList.remove('active');
+    });
+  });
+
+  // Close nav when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('open')) {
+      nav.classList.remove('open');
+      hamburger.classList.remove('active');
+    }
+  });
 }
 
 // --- CHECKOUT ---
