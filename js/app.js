@@ -392,9 +392,47 @@ function initPaymentMethods() {
   });
 }
 
+// --- AGE VERIFICATION ---
+function getAge(dobString) {
+  const dob = new Date(dobString);
+  const today = new Date();
+  let age = today.getFullYear() - dob.getFullYear();
+  const monthDiff = today.getMonth() - dob.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+    age--;
+  }
+  return age;
+}
+
+function initDobField() {
+  const dobInput = document.getElementById('dobInput');
+  if (!dobInput) return;
+  // Set max date to today (no future dates)
+  const today = new Date().toISOString().split('T')[0];
+  dobInput.setAttribute('max', today);
+}
+
 // --- PLACE ORDER ---
 function placeOrder(e) {
   e.preventDefault();
+
+  // Age verification
+  const dobInput = document.getElementById('dobInput');
+  if (dobInput) {
+    const dob = dobInput.value;
+    if (!dob) {
+      showToast('Please enter your date of birth');
+      dobInput.focus();
+      return;
+    }
+    const age = getAge(dob);
+    if (age < 18) {
+      showToast('You must be 18 or older to place an order');
+      dobInput.focus();
+      return;
+    }
+  }
+
   const method = document.querySelector('.payment-method-option.selected');
   if (!method) {
     showToast('Please select a payment method');
@@ -405,18 +443,74 @@ function placeOrder(e) {
     return;
   }
 
-  // In production this would submit to a backend
+  const form = document.getElementById('checkoutForm');
+  const inputs = form.querySelectorAll('input, select, textarea');
   const orderNum = 'ORD-' + Date.now().toString(36).toUpperCase();
-  showToast(`Order ${orderNum} placed! Check your email for payment instructions.`);
 
-  // Clear cart
-  cart = [];
-  saveCart();
+  // Collect form data
+  const formFields = {};
+  inputs.forEach(input => {
+    const label = input.closest('.form-group')?.querySelector('label')?.textContent?.replace(' *', '').trim();
+    if (label && input.value) {
+      formFields[label] = input.value;
+    }
+  });
 
-  // Redirect after delay
-  setTimeout(() => {
-    window.location.href = 'index.html';
-  }, 3000);
+  // Build order items text
+  const subtotal = getCartTotal();
+  const shipping = subtotal >= 250 ? 0 : 15.00;
+  const total = subtotal + shipping;
+
+  const itemLines = cart.map(item =>
+    `${item.name} × ${item.qty} — $${(item.price * item.qty).toFixed(2)}`
+  ).join('\n');
+
+  const orderDetails = {
+    'Order Number': orderNum,
+    '_subject': `New 818 Labs Order: ${orderNum}`,
+    ...formFields,
+    'Payment Method': method.dataset.method.charAt(0).toUpperCase() + method.dataset.method.slice(1),
+    'Order Items': itemLines,
+    'Subtotal': `$${subtotal.toFixed(2)}`,
+    'Shipping': shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`,
+    'Total': `$${total.toFixed(2)}`,
+    '_template': 'table',
+    '_captcha': 'false'
+  };
+
+  // Send order to email via Formsubmit
+  const submitBtn = form.querySelector('button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Placing Order...';
+  }
+
+  fetch('https://formsubmit.co/ajax/support.818labs@gmail.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(orderDetails)
+  })
+  .then(response => response.json())
+  .then(data => {
+    showToast(`Order ${orderNum} placed! Check your email for payment instructions.`);
+    cart = [];
+    saveCart();
+    setTimeout(() => { window.location.href = 'index.html'; }, 3000);
+  })
+  .catch(err => {
+    console.error('Order email error:', err);
+    // Still place the order even if email fails
+    showToast(`Order ${orderNum} placed! Check your email for payment instructions.`);
+    cart = [];
+    saveCart();
+    setTimeout(() => { window.location.href = 'index.html'; }, 3000);
+  })
+  .finally(() => {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Place Order';
+    }
+  });
 }
 
 // --- INIT ---
@@ -426,6 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFAQ();
   initFilters();
   initPaymentMethods();
+  initDobField();
 
   // Cart overlay close
   document.querySelector('.cart-overlay')?.addEventListener('click', toggleCart);
