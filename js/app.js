@@ -2,6 +2,80 @@
 // 818 LABS - Main Application JS
 // ============================================
 
+// --- AGE GATE (site-wide) ---
+(function() {
+  if (localStorage.getItem('818labs-age-verified') === 'true') return;
+
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'ageGateOverlay';
+  overlay.innerHTML = `
+    <div class="age-gate-backdrop"></div>
+    <div class="age-gate-modal">
+      <img src="images/logo.png" alt="818 Labs" class="age-gate-logo">
+      <h2>Age Verification Required</h2>
+      <p>You must be 21 years or older to enter this website. By clicking "Yes" you confirm that you are of legal age.</p>
+      <p class="age-gate-question">Are you 21 or older?</p>
+      <div class="age-gate-buttons">
+        <button id="ageGateYes" class="age-gate-btn age-gate-yes">Yes, I am 21+</button>
+        <button id="ageGateNo" class="age-gate-btn age-gate-no">No</button>
+      </div>
+    </div>
+  `;
+
+  // Inject styles
+  const style = document.createElement('style');
+  style.textContent = `
+    .age-gate-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 99998;
+    }
+    .age-gate-modal {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      background: #111; border: 1px solid rgba(0,200,150,0.3); border-radius: 16px;
+      padding: 48px 40px; text-align: center; z-index: 99999;
+      max-width: 440px; width: 90%; box-shadow: 0 0 60px rgba(0,200,150,0.15);
+    }
+    .age-gate-logo { height: 60px; margin-bottom: 24px; }
+    .age-gate-modal h2 {
+      font-size: 1.5rem; color: #fff; margin-bottom: 12px; font-weight: 700;
+    }
+    .age-gate-modal p {
+      color: #aaa; font-size: 0.95rem; line-height: 1.6; margin-bottom: 8px;
+    }
+    .age-gate-question {
+      color: #fff !important; font-size: 1.1rem !important; font-weight: 600;
+      margin-top: 20px !important; margin-bottom: 24px !important;
+    }
+    .age-gate-buttons { display: flex; gap: 16px; justify-content: center; }
+    .age-gate-btn {
+      padding: 14px 36px; border: none; border-radius: 8px; font-size: 1rem;
+      font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .age-gate-yes {
+      background: linear-gradient(135deg, #00c896, #00a67d); color: #fff;
+    }
+    .age-gate-yes:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,200,150,0.4); }
+    .age-gate-no {
+      background: transparent; color: #888; border: 1px solid #333;
+    }
+    .age-gate-no:hover { border-color: #666; color: #ccc; }
+    body.age-gate-active { overflow: hidden; }
+  `;
+  document.head.appendChild(style);
+  document.body.appendChild(overlay);
+  document.body.classList.add('age-gate-active');
+
+  document.getElementById('ageGateYes').addEventListener('click', function() {
+    localStorage.setItem('818labs-age-verified', 'true');
+    overlay.remove();
+    document.body.classList.remove('age-gate-active');
+  });
+
+  document.getElementById('ageGateNo').addEventListener('click', function() {
+    window.location.href = 'https://www.google.com';
+  });
+})();
+
 // --- CART STATE ---
 let cart = JSON.parse(localStorage.getItem('818labs-cart') || '[]');
 
@@ -426,8 +500,8 @@ function placeOrder(e) {
       return;
     }
     const age = getAge(dob);
-    if (age < 18) {
-      showToast('You must be 18 or older to place an order');
+    if (age < 21) {
+      showToast('You must be 21 or older to place an order');
       dobInput.focus();
       return;
     }
