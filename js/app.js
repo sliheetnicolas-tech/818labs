@@ -167,7 +167,7 @@ function renderProductCard(product) {
     <div class="product-card" onclick="window.location='product.html?id=${product.id}'">
       ${badgeHTML}
       <div class="product-image">
-        <img src="images/products/${product.id}.svg" alt="${product.name}" loading="lazy">
+        <img src="images/products/${product.id}.png" alt="${product.name}" loading="lazy" onerror="this.src='images/products/${product.id}.svg'">
       </div>
       <div class="product-info">
         <h3>${product.name}</h3>
@@ -235,7 +235,7 @@ function renderProductDetail() {
   container.innerHTML = `
     <div class="product-detail-grid">
       <div class="product-detail-image">
-        <img src="images/products/${product.id}.svg" alt="${product.name}" style="max-height:320px;">
+        <img src="images/products/${product.id}.png" alt="${product.name}" style="max-height:320px;" onerror="this.src='images/products/${product.id}.svg'">
       </div>
       <div class="product-detail-info">
         <h1>${product.name}</h1>
