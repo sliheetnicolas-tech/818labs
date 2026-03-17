@@ -35,32 +35,40 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1000px;margin:0 auto;">
         <!-- Contact Form -->
         <div>
-          <form id="contactForm" onsubmit="event.preventDefault(); showToast('Message sent! We\'ll get back to you within 24 hours.'); this.reset();">
+          <form id="contactForm" action="https://formsubmit.co/support.818labs@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New 818 Labs Contact Form Inquiry">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://818labs.com/contact.html?sent=1">
+            <input type="text" name="_honey" style="display:none">
             <div class="form-group">
               <label>Full Name *</label>
-              <input type="text" required placeholder="Your name">
+              <input type="text" name="name" required placeholder="Your name">
             </div>
             <div class="form-group">
               <label>Email Address *</label>
-              <input type="email" required placeholder="you@example.com">
+              <input type="email" name="email" required placeholder="you@example.com">
             </div>
             <div class="form-group">
               <label>Subject</label>
-              <input type="text" placeholder="Order inquiry, product question, etc.">
+              <input type="text" name="subject" placeholder="Order inquiry, product question, etc.">
             </div>
             <div class="form-group">
               <label>Message *</label>
-              <textarea required rows="6" placeholder="How can we help?" style="resize:vertical;"></textarea>
+              <textarea name="message" required rows="6" placeholder="How can we help?" style="resize:vertical;"></textarea>
             </div>
             <button type="submit" class="btn btn-primary" style="width:100%;text-align:center;">Send Message</button>
           </form>
+          <div id="sentMsg" style="display:none;background:var(--bg-card);border:1px solid var(--accent);border-radius:var(--radius-lg);padding:24px;margin-top:16px;text-align:center;">
+            <p style="color:var(--accent);font-weight:600;">✅ Message sent! We'll get back to you within 24 hours.</p>
+          </div>
+          <script>if(window.location.search.includes('sent=1')){document.getElementById('sentMsg').style.display='block';document.getElementById('contactForm').style.display='none';}</script>
         </div>
 
         <!-- Contact Info -->
         <div>
           <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:30px;margin-bottom:24px;">
             <h3 style="margin-bottom:16px;font-size:1.1rem;">📧 Email</h3>
-            <p style="color:var(--text-secondary);"><a href="mailto:support@818labs.com">support@818labs.com</a></p>
+            <p style="color:var(--text-secondary);"><a href="mailto:support.818labs@gmail.com">support.818labs@gmail.com</a></p>
             <p style="color:var(--text-muted);font-size:0.85rem;margin-top:8px;">We typically respond within 24 hours.</p>
           </div>
 
@@ -74,7 +82,7 @@
             <p style="color:var(--text-secondary);">Monday – Friday: 9AM – 5PM PST</p>
             <p style="color:var(--text-secondary);">Saturday: 10AM – 2PM PST</p>
             <p style="color:var(--text-secondary);">Sunday: Closed</p>
-            <p style="color:var(--text-muted);font-size:0.85rem;margin-top:12px;">Orders placed before 1PM PST ship same day.</p>
+
           </div>
         </div>
       </div>
@@ -87,7 +95,7 @@
         <div class="footer-brand"><a href="index.html" class="logo"><img src="images/logo.png" alt="818 Labs" style="height:40px;"></a><p>818 Labs is a top supplier of research-use-only peptides.</p></div>
         <div><h4>Quick Links</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="shop.html">Shop</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
         <div><h4>Legal</h4><ul class="footer-links"><li><a href="refund.html">Refund & Return</a></li><li><a href="shipping.html">Shipping Policy</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms & Conditions</a></li></ul></div>
-        <div class="footer-contact"><h4>Get in Touch</h4><p>📧 <a href="mailto:support@818labs.com">support@818labs.com</a></p><p>📍 United States</p></div>
+        <div class="footer-contact"><h4>Get in Touch</h4><p>📧 <a href="mailto:support.818labs@gmail.com">support.818labs@gmail.com</a></p><p>📍 United States</p></div>
       </div>
       <div class="footer-bottom"><p>&copy; 2026 818 Labs. All rights reserved.</p></div>
     </div>

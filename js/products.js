@@ -11,10 +11,10 @@ const PRODUCTS = [
     description: "Retatrutide research peptide",
     specs: { form: "Lyophilized Powder", purity: ">99%", formula: "C316H481F3N94O101", mw: "6758.22 g/mol" },
     variants: [
-      { label: "10mg", price: 89.00 },
-      { label: "20mg", price: 140.00 },
-      { label: "30mg", price: 200.00 },
-      { label: "60mg", price: 280.00 }
+      { label: "10mg", price: 96.00 },
+      { label: "20mg", price: 147.00 },
+      { label: "30mg", price: 207.00 },
+      { label: "60mg", price: 287.00 }
     ],
     badge: "best-seller",
     onSale: true
@@ -26,8 +26,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Multi-peptide research blend",
     specs: { quantity: "70mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 110.00,
-    originalPrice: 125.00,
+    price: 117.00,
+    originalPrice: 132.00,
     badge: "sale",
     onSale: true
   },
@@ -38,8 +38,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Growth hormone secretagogue blend",
     specs: { quantity: "5mg/5mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 85.00,
-    originalPrice: 89.00,
+    price: 92.00,
+    originalPrice: 96.00,
     onSale: true
   },
   {
@@ -49,8 +49,8 @@ const PRODUCTS = [
     description: "Body Protection Compound",
     specs: { form: "Lyophilized Powder", purity: ">99%", sequence: "GEPPPGKPADDAGLV" },
     variants: [
-      { label: "5mg", price: 45.00 },
-      { label: "10mg", price: 64.00 }
+      { label: "5mg", price: 52.00 },
+      { label: "10mg", price: 71.00 }
     ]
   },
   {
@@ -60,7 +60,7 @@ const PRODUCTS = [
     category: "peptides",
     description: "Modified GRF (1-29)",
     specs: { quantity: "5mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 45.00
+    price: 52.00
   },
   {
     id: "cjc-w-dac",
@@ -69,8 +69,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Drug Affinity Complex variant",
     specs: { quantity: "5mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 66.00,
-    originalPrice: 80.00,
+    price: 73.00,
+    originalPrice: 87.00,
     onSale: true
   },
   {
@@ -80,8 +80,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Premium multi-peptide research blend",
     specs: { quantity: "80mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 117.50,
-    originalPrice: 120.00,
+    price: 124.50,
+    originalPrice: 127.00,
     onSale: true
   },
   {
@@ -91,8 +91,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Recovery research blend",
     specs: { quantity: "10mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 80.00,
-    originalPrice: 85.00,
+    price: 87.00,
+    originalPrice: 92.00,
     onSale: true
   },
   {
@@ -101,7 +101,7 @@ const PRODUCTS = [
     category: "peptides",
     description: "Thymosin Beta-4 fragment",
     specs: { quantity: "10mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 70.00
+    price: 77.00
   },
   {
     id: "selank-5mg",
@@ -109,8 +109,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Anxiolytic research peptide",
     specs: { quantity: "5mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 39.00,
-    originalPrice: 40.00,
+    price: 46.00,
+    originalPrice: 47.00,
     onSale: true
   },
   {
@@ -120,8 +120,8 @@ const PRODUCTS = [
     description: "Nootropic research peptide",
     specs: { form: "Lyophilized Powder", purity: ">99%" },
     variants: [
-      { label: "5mg", price: 42.50 },
-      { label: "10mg", price: 65.00 }
+      { label: "5mg", price: 49.50 },
+      { label: "10mg", price: 72.00 }
     ]
   },
   {
@@ -130,8 +130,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Growth hormone releasing peptide",
     specs: { quantity: "5mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 35.00,
-    originalPrice: 40.00,
+    price: 42.00,
+    originalPrice: 47.00,
     onSale: true
   },
   {
@@ -140,8 +140,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Delta Sleep Inducing Peptide",
     specs: { quantity: "5mg", form: "Lyophilized Powder", purity: ">99%", sequence: "Trp-Ala-Gly-Gly-Asp-Ala-Ser-Gly-Glu", mw: "849.88 g/mol" },
-    price: 39.00,
-    originalPrice: 40.00,
+    price: 46.00,
+    originalPrice: 47.00,
     onSale: true
   },
   {
@@ -150,7 +150,7 @@ const PRODUCTS = [
     category: "peptides",
     description: "Telomerase activator peptide",
     specs: { quantity: "10mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 55.00
+    price: 62.00
   },
   {
     id: "kisspeptin-10mg",
@@ -158,7 +158,7 @@ const PRODUCTS = [
     category: "peptides",
     description: "GnRH stimulating peptide",
     specs: { quantity: "10mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 55.00
+    price: 62.00
   },
   {
     id: "ghk-cu",
@@ -167,8 +167,8 @@ const PRODUCTS = [
     description: "Copper peptide complex",
     specs: { form: "Lyophilized Powder", purity: ">99%" },
     variants: [
-      { label: "50mg", price: 42.50 },
-      { label: "100mg", price: 57.50 }
+      { label: "50mg", price: 49.50 },
+      { label: "100mg", price: 64.50 }
     ]
   },
   {
@@ -177,8 +177,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Selective GH secretagogue",
     specs: { quantity: "10mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 79.00,
-    originalPrice: 90.00,
+    price: 86.00,
+    originalPrice: 97.00,
     onSale: true
   },
   {
@@ -188,9 +188,9 @@ const PRODUCTS = [
     description: "Melanocortin receptor agonist",
     specs: { form: "Lyophilized Powder", purity: ">99%" },
     variants: [
-      { label: "10mg", price: 43.00 },
-      { label: "20mg", price: 70.00 },
-      { label: "30mg", price: 95.00 }
+      { label: "10mg", price: 50.00 },
+      { label: "20mg", price: 77.00 },
+      { label: "30mg", price: 102.00 }
     ],
     onSale: true
   },
@@ -200,8 +200,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Mitochondrial-derived peptide",
     specs: { quantity: "10mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 69.00,
-    originalPrice: 75.00,
+    price: 76.00,
+    originalPrice: 82.00,
     onSale: true
   },
   {
@@ -210,8 +210,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Nicotinamide adenine dinucleotide",
     specs: { quantity: "500mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 75.00,
-    originalPrice: 85.00,
+    price: 82.00,
+    originalPrice: 92.00,
     onSale: true
   },
   {
@@ -220,7 +220,7 @@ const PRODUCTS = [
     category: "peptides",
     description: "Anti-obesity drug fragment",
     specs: { quantity: "5mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 45.00
+    price: 52.00
   },
   {
     id: "cagrilintide-10mg",
@@ -228,8 +228,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Long-acting amylin analog",
     specs: { quantity: "10mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 95.00,
-    originalPrice: 110.00,
+    price: 102.00,
+    originalPrice: 117.00,
     onSale: true
   },
   {
@@ -238,8 +238,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "GHRH analog peptide",
     specs: { quantity: "10mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 85.00,
-    originalPrice: 95.00,
+    price: 92.00,
+    originalPrice: 102.00,
     onSale: true
   },
   {
@@ -249,8 +249,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Dual GIP/GLP-1 receptor agonist",
     specs: { quantity: "10mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 85.00,
-    originalPrice: 90.00,
+    price: 92.00,
+    originalPrice: 97.00,
     onSale: true
   },
   {
@@ -259,8 +259,8 @@ const PRODUCTS = [
     category: "peptides",
     description: "Long R3 Insulin-like Growth Factor",
     specs: { quantity: "1mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 95.00,
-    originalPrice: 105.00,
+    price: 102.00,
+    originalPrice: 112.00,
     onSale: true
   },
   {
@@ -269,7 +269,7 @@ const PRODUCTS = [
     category: "peptides",
     description: "GLP-1 receptor agonist",
     specs: { quantity: "10mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 89.00
+    price: 96.00
   },
   {
     id: "retatrutide-10mg",
@@ -277,7 +277,7 @@ const PRODUCTS = [
     category: "peptides",
     description: "Triple hormone receptor agonist",
     specs: { quantity: "10mg", form: "Lyophilized Powder", purity: ">99%" },
-    price: 89.00
+    price: 96.00
   },
   {
     id: "hgh-15iu",
@@ -285,7 +285,7 @@ const PRODUCTS = [
     category: "peptides",
     description: "Human Growth Hormone",
     specs: { quantity: "15IU", form: "Lyophilized Powder", purity: ">99%" },
-    price: 95.00
+    price: 102.00
   },
 
   // --- CAPSULES ---
@@ -295,8 +295,8 @@ const PRODUCTS = [
     category: "capsules",
     description: "Selective estrogen receptor modulator",
     specs: { form: "Capsules", purity: ">99%" },
-    price: 89.00,
-    originalPrice: 115.00,
+    price: 96.00,
+    originalPrice: 122.00,
     badge: "sale",
     onSale: true
   },
@@ -306,8 +306,8 @@ const PRODUCTS = [
     category: "capsules",
     description: "Growth hormone secretagogue (oral)",
     specs: { form: "Capsules", purity: ">99%" },
-    price: 89.00,
-    originalPrice: 115.00,
+    price: 96.00,
+    originalPrice: 122.00,
     badge: "sale",
     onSale: true
   },
@@ -318,9 +318,9 @@ const PRODUCTS = [
     description: "Selective androgen receptor modulator",
     specs: { form: "Capsules", purity: ">99%" },
     variants: [
-      { label: "30ct", price: 79.00 }
+      { label: "30ct", price: 86.00 }
     ],
-    originalPrice: 89.00,
+    originalPrice: 96.00,
     onSale: true
   },
 
@@ -331,7 +331,7 @@ const PRODUCTS = [
     category: "nasal-sprays",
     description: "Nootropic nasal spray blend",
     specs: { form: "Nasal Spray" },
-    price: 85.00
+    price: 92.00
   },
 
   // --- ACCESSORIES ---
@@ -342,8 +342,8 @@ const PRODUCTS = [
     description: "Sterile reconstitution water",
     specs: { form: "Sterile Solution" },
     variants: [
-      { label: "3ml", price: 14.50 },
-      { label: "10ml", price: 29.50 }
+      { label: "3ml", price: 21.50 },
+      { label: "10ml", price: 36.50 }
     ],
     badge: "best-seller"
   }

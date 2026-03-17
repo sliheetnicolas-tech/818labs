@@ -1,167 +1,120 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
-<defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+  <defs>
+    <!-- Dark background gradient -->
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#0f0f12"/>
+      <stop offset="100%" stop-color="#050507"/>
+    </radialGradient>
+    <!-- Glass body gradient -->
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(180,200,210,0.15)"/>
+      <stop offset="15%" stop-color="rgba(220,235,240,0.08)"/>
+      <stop offset="40%" stop-color="rgba(200,215,225,0.05)"/>
+      <stop offset="60%" stop-color="rgba(200,215,225,0.05)"/>
+      <stop offset="85%" stop-color="rgba(220,235,240,0.08)"/>
+      <stop offset="100%" stop-color="rgba(180,200,210,0.15)"/>
+    </linearGradient>
+    <!-- Glass highlight left -->
+    <linearGradient id="glassHL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.25)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+    <!-- Glass highlight right -->
+    <linearGradient id="glassHR" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.12)"/>
+    </linearGradient>
+    <!-- Silver cap gradient -->
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8e8e8"/>
+      <stop offset="20%" stop-color="#c0c0c0"/>
+      <stop offset="50%" stop-color="#d8d8d8"/>
+      <stop offset="80%" stop-color="#a8a8a8"/>
+      <stop offset="100%" stop-color="#b8b8b8"/>
+    </linearGradient>
+    <!-- Gold cap gradient -->
+    <linearGradient id="goldCap" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4b07a"/>
+      <stop offset="50%" stop-color="#c4a060"/>
+      <stop offset="100%" stop-color="#b89050"/>
+    </linearGradient>
+    <!-- Label gradient -->
+    <linearGradient id="label" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d4b882"/>
+      <stop offset="50%" stop-color="#c8a870"/>
+      <stop offset="100%" stop-color="#bfa068"/>
+    </linearGradient>
+    <!-- Reflection gradient -->
+    <linearGradient id="reflect" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(180,200,210,0.08)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </linearGradient>
+  </defs>
+
   <!-- Background -->
-  <radialGradient id="rbgipamorelin10mg" cx="50%" cy="45%" r="65%">
-    <stop offset="0%" stop-color="#141e30"/>
-    <stop offset="100%" stop-color="#0a0f1a"/>
-  </radialGradient>
+  <rect width="400" height="500" fill="url(#bg)"/>
   
-  <!-- Glass body gradient -->
-  <linearGradient id="glassipamorelin10mg" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="#b8c5d4" stop-opacity="0.35"/>
-    <stop offset="15%" stop-color="#e8edf2" stop-opacity="0.12"/>
-    <stop offset="35%" stop-color="#f8fafc" stop-opacity="0.06"/>
-    <stop offset="50%" stop-color="#f8fafc" stop-opacity="0.04"/>
-    <stop offset="65%" stop-color="#f8fafc" stop-opacity="0.06"/>
-    <stop offset="85%" stop-color="#e8edf2" stop-opacity="0.12"/>
-    <stop offset="100%" stop-color="#b8c5d4" stop-opacity="0.3"/>
-  </linearGradient>
-  
-  <!-- Glass inner shine -->
-  <linearGradient id="shineipamorelin10mg" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="white" stop-opacity="0"/>
-    <stop offset="18%" stop-color="white" stop-opacity="0.25"/>
-    <stop offset="22%" stop-color="white" stop-opacity="0.08"/>
-    <stop offset="100%" stop-color="white" stop-opacity="0"/>
-  </linearGradient>
+  <!-- Subtle floor reflection line -->
+  <ellipse cx="200" cy="460" rx="120" ry="8" fill="rgba(255,255,255,0.03)"/>
 
-  <!-- Liquid -->
-  <linearGradient id="liqipamorelin10mg" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#dbeafe" stop-opacity="0.2"/>
-    <stop offset="40%" stop-color="#3b82f6" stop-opacity="0.12"/>
-    <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.25"/>
-  </linearGradient>
-  
-  <!-- Flip-off cap -->
-  <linearGradient id="capipamorelin10mg" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#1e40af" stop-opacity="0.95"/>
-    <stop offset="40%" stop-color="#1e40af"/>
-    <stop offset="100%" stop-color="#1e40af" stop-opacity="0.8"/>
-  </linearGradient>
-  <linearGradient id="caphiipamorelin10mg" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="white" stop-opacity="0"/>
-    <stop offset="25%" stop-color="white" stop-opacity="0.25"/>
-    <stop offset="50%" stop-color="white" stop-opacity="0.08"/>
-    <stop offset="100%" stop-color="white" stop-opacity="0"/>
-  </linearGradient>
-  
-  <!-- Aluminum crimp -->
-  <linearGradient id="crimpipamorelin10mg" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="#a0a8b0"/>
-    <stop offset="20%" stop-color="#d4dae0"/>
-    <stop offset="40%" stop-color="#c8cfd6"/>
-    <stop offset="60%" stop-color="#d8dee4"/>
-    <stop offset="80%" stop-color="#c0c8d0"/>
-    <stop offset="100%" stop-color="#a0a8b0"/>
-  </linearGradient>
-
-  <!-- Label -->
-  <linearGradient id="lblipamorelin10mg" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#fcfcfc"/>
-    <stop offset="100%" stop-color="#f2f2f2"/>
-  </linearGradient>
-  
-  <!-- Shadows & filters -->
-  <filter id="vshadowipamorelin10mg">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
-    <feOffset dy="8"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
-    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-  <filter id="ishadowipamorelin10mg">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
-    <feOffset dy="1"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.15"/></feComponentTransfer>
-    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-
-  <clipPath id="vclipipamorelin10mg">
-    <rect x="116" y="115" width="68" height="180" rx="4"/>
-  </clipPath>
-</defs>
-
-<!-- Background -->
-<rect width="300" height="400" fill="url(#rbgipamorelin10mg)"/>
-
-<!-- Subtle floor reflection -->
-<ellipse cx="150" cy="340" rx="60" ry="12" fill="white" opacity="0.02"/>
-<ellipse cx="150" cy="338" rx="45" ry="6" fill="#3b82f6" opacity="0.04"/>
-
-<!-- Main vial group -->
-<g filter="url(#vshadowipamorelin10mg)">
-  
-  <!-- === FLIP-OFF CAP === -->
-  <rect x="134" y="87" width="32" height="22" rx="4" fill="url(#capipamorelin10mg)"/>
-  <rect x="134" y="87" width="32" height="22" rx="4" fill="url(#caphiipamorelin10mg)"/>
-  <!-- Cap top highlight -->
-  <rect x="136" y="89" width="28" height="3" rx="1.5" fill="white" opacity="0.2"/>
-  <!-- Cap ridge lines -->
-  <line x1="136" y1="106" x2="164" y2="106" stroke="black" stroke-opacity="0.15" stroke-width="0.5"/>
-
-  <!-- === ALUMINUM CRIMP === -->
-  <rect x="115" y="109" width="70" height="10" rx="2" fill="url(#crimpipamorelin10mg)"/>
-  <!-- Crimp texture lines -->
-  <line x1="120" y1="110" x2="120" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
-  <line x1="128" y1="110" x2="128" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
-  <line x1="136" y1="110" x2="136" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
-  <line x1="144" y1="110" x2="144" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
-  <line x1="152" y1="110" x2="152" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
-  <line x1="160" y1="110" x2="160" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
-  <line x1="168" y1="110" x2="168" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
-  <line x1="176" y1="110" x2="176" y2="114" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>
-  <!-- Crimp bottom edge -->
-  <rect x="116" y="114" width="68" height="2" rx="1" fill="#b0b8c0"/>
-
-  <!-- === GLASS BODY === -->
-  <rect x="116" y="115" width="68" height="180" rx="4" fill="url(#glassipamorelin10mg)" stroke="white" stroke-opacity="0.08" stroke-width="0.5"/>
-  
-  <!-- Liquid fill (clipped to vial) -->
-  <g clip-path="url(#vclipipamorelin10mg)">
-    <rect x="116" y="178" width="68" height="118.4" fill="url(#liqipamorelin10mg)"/>
-    <!-- Liquid surface meniscus -->
-    <ellipse cx="150" cy="178" rx="32" ry="3" fill="#3b82f6" opacity="0.08"/>
-  </g>
-  
-  <!-- Glass shine (left edge) -->
-  <rect x="116" y="115" width="68" height="180" rx="4" fill="url(#shineipamorelin10mg)"/>
-  
-  <!-- Secondary reflection (right) -->
-  <rect x="172" y="120" width="4" height="165" rx="2" fill="white" opacity="0.06"/>
-  
-  <!-- Edge highlight left -->
-  <rect x="118" y="123" width="1.5" height="160" rx="0.75" fill="white" opacity="0.12"/>
-
-  <!-- === LABEL === -->
-  <g filter="url(#ishadowipamorelin10mg)">
-    <rect x="118" y="145" width="64" height="105" rx="2" fill="url(#lblipamorelin10mg)"/>
-    
-    <!-- Label border accent -->
-    <rect x="118" y="145" width="64" height="3" rx="1" fill="#3b82f6"/>
-    
-    <!-- 818 LABS brand -->
-    <text x="150" y="165" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="8.5" font-weight="900" fill="#111" letter-spacing="3">818 LABS</text>
-    
-    <!-- Thin divider -->
-    <line x1="128" y1="171" x2="170" y2="171" stroke="#3b82f6" stroke-width="0.8" stroke-opacity="0.6"/>
-    
-    <!-- Product name -->
-    <text x="150" y="187" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="800" fill="#1e40af">Ipamorelin 10mg</text>
-    
-    <!-- Subtitle / blend info -->
-    
-    
-    <!-- Dosage -->
-    <text x="150" y="206" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="8" font-weight="700" fill="#444">10mg</text>
-    
-    <!-- Purity badge -->
-    <rect x="128" y="230" width="44" height="13" rx="6.5" fill="#1e40af"/>
-    <text x="150" y="239" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="6.5" font-weight="700" fill="white" letter-spacing="0.5">>99% PURE</text>
-    
-    <!-- Research use text -->
-    <text x="150" y="247" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="4" font-weight="500" fill="#999" letter-spacing="0.8">FOR RESEARCH USE ONLY</text>
+  <!-- Vial reflection (flipped, faded) -->
+  <g opacity="0.08" transform="translate(0,920) scale(1,-1)">
+    <rect x="145" y="200" width="110" height="240" rx="8" fill="rgba(160,180,190,0.3)"/>
   </g>
 
-  <!-- Glass rim at bottom -->
-  <rect x="116" y="293" width="68" height="2" rx="1" fill="white" opacity="0.06"/>
-</g>
+  <!-- VIAL BODY -->
+  <!-- Main glass body -->
+  <rect x="145" y="200" width="110" height="240" rx="8" fill="url(#glass)" stroke="rgba(180,200,210,0.12)" stroke-width="1"/>
+  
+  <!-- Glass left highlight -->
+  <rect x="147" y="202" width="15" height="236" rx="6" fill="url(#glassHL)"/>
+  
+  <!-- Glass right highlight -->
+  <rect x="238" y="202" width="15" height="236" rx="6" fill="url(#glassHR)"/>
+  
+  <!-- Glass bottom curve -->
+  <ellipse cx="200" cy="438" rx="55" ry="6" fill="rgba(180,200,210,0.08)"/>
+
+  <!-- Neck taper -->
+  <path d="M155,200 L155,185 Q155,175 165,170 L235,170 Q245,175 245,185 L245,200" fill="url(#glass)" stroke="rgba(180,200,210,0.1)" stroke-width="0.5"/>
+
+  <!-- CRIMP CAP (silver aluminum) -->
+  <rect x="155" y="155" width="90" height="20" rx="3" fill="url(#silver)"/>
+  <!-- Crimp cap ridges -->
+  <line x1="160" y1="170" x2="160" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="170" y1="170" x2="170" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="180" y1="170" x2="180" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="190" y1="170" x2="190" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="200" y1="170" x2="200" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="210" y1="170" x2="210" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="220" y1="170" x2="220" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="230" y1="170" x2="230" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="240" y1="170" x2="240" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <!-- Cap highlight -->
+  <rect x="155" y="155" width="90" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
+
+  <!-- FLIP-OFF CAP (gold/beige) -->
+  <rect x="168" y="140" width="64" height="18" rx="6" fill="url(#goldCap)"/>
+  <rect x="168" y="140" width="64" height="4" rx="3" fill="rgba(255,255,255,0.15)"/>
+
+  <!-- LABEL -->
+  <rect x="150" y="265" width="100" height="160" rx="2" fill="url(#label)"/>
+  
+  <!-- Label text: 818 LABS -->
+  <text x="200" y="292" font-family="Arial Black, Arial, sans-serif" font-size="18" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="2">818 LABS</text>
+  
+  <!-- Separator line -->
+  <line x1="165" y1="300" x2="235" y2="300" stroke="#1a1a1a" stroke-width="0.5" opacity="0.3"/>
+  
+  <!-- Product name -->
+  <text x="200" y="342" font-family="Arial Black, Arial, sans-serif" font-size="36" font-weight="900" fill="#1a1a1a" text-anchor="middle">IPAMORELIN</text>
+  
+  <!-- Dose -->
+  <text x="200" y="375" font-family="Arial, sans-serif" font-size="14" fill="#3a3a3a" text-anchor="middle">10MG</text>
+  
+  <!-- Purity -->
+  <text x="200" y="393" font-family="Arial, sans-serif" font-size="12" fill="#3a3a3a" text-anchor="middle">99% Purity</text>
+  
+  <!-- Research use only -->
+  <text x="200" y="409" font-family="Arial, sans-serif" font-size="10" fill="#555555" text-anchor="middle">For Research Use Only</text>
 </svg>

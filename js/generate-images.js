@@ -1,421 +1,317 @@
-// SVG Product Image Generator for 818 Labs — Realistic Vial Style
+/**
+ * 818 Labs — Product Image Generator
+ * Generates SVG product images matching the reference photo:
+ * Clear glass vial, silver crimp cap, gold flip-off cap, dark background,
+ * gold/beige label with 818 LABS branding
+ */
+
 const fs = require('fs');
 const path = require('path');
 
-const imgDir = path.join(__dirname, '..', 'images', 'products');
-if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir, { recursive: true });
+const OUTPUT_DIR = path.join(__dirname, '..', 'images', 'products');
 
-function escapeXml(str) {
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+// Ensure output directory exists
+if (!fs.existsSync(OUTPUT_DIR)) {
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
-// Unique colors per product for the flip-off cap and label accent
-const PRODUCT_COLORS = {
-  'glp3-rt':           { cap: '#1e40af', accent: '#2563eb', liquidTint: '#dbeafe' },
-  'glow-70mg':         { cap: '#059669', accent: '#10b981', liquidTint: '#d1fae5' },
-  'cjc-1295-ipamorelin': { cap: '#2563eb', accent: '#3b82f6', liquidTint: '#dbeafe' },
-  'bpc-157':           { cap: '#7c3aed', accent: '#8b5cf6', liquidTint: '#ede9fe' },
-  'cjc-1295-no-dac':   { cap: '#0369a1', accent: '#0ea5e9', liquidTint: '#e0f2fe' },
-  'cjc-w-dac':         { cap: '#0e7490', accent: '#06b6d4', liquidTint: '#cffafe' },
-  'klow-80mg':         { cap: '#7c3aed', accent: '#a855f7', liquidTint: '#f3e8ff' },
-  'wolverine-10mg':    { cap: '#dc2626', accent: '#ef4444', liquidTint: '#fee2e2' },
-  'tb500-10mg':        { cap: '#2563eb', accent: '#60a5fa', liquidTint: '#dbeafe' },
-  'selank-5mg':        { cap: '#0891b2', accent: '#22d3ee', liquidTint: '#cffafe' },
-  'semax':             { cap: '#0d9488', accent: '#14b8a6', liquidTint: '#ccfbf1' },
-  'sermorelin-5mg':    { cap: '#4f46e5', accent: '#818cf8', liquidTint: '#e0e7ff' },
-  'dsip-5mg':          { cap: '#6d28d9', accent: '#a78bfa', liquidTint: '#ede9fe' },
-  'epithalon-10mg':    { cap: '#1d4ed8', accent: '#3b82f6', liquidTint: '#dbeafe' },
-  'kisspeptin-10mg':   { cap: '#be123c', accent: '#f43f5e', liquidTint: '#ffe4e6' },
-  'ghk-cu':            { cap: '#b45309', accent: '#f59e0b', liquidTint: '#fef3c7' },
-  'ipamorelin-10mg':   { cap: '#1e40af', accent: '#3b82f6', liquidTint: '#dbeafe' },
-  'mt2-10mg':          { cap: '#92400e', accent: '#d97706', liquidTint: '#fef3c7' },
-  'mots-c-10mg':       { cap: '#047857', accent: '#10b981', liquidTint: '#d1fae5' },
-  'nad-500mg':         { cap: '#7c2d12', accent: '#ea580c', liquidTint: '#ffedd5' },
-  'aod-9604-5mg':      { cap: '#1e3a8a', accent: '#2563eb', liquidTint: '#dbeafe' },
-  'cagrilintide-10mg': { cap: '#5b21b6', accent: '#8b5cf6', liquidTint: '#ede9fe' },
-  'tesamorelin-10mg':  { cap: '#1e40af', accent: '#60a5fa', liquidTint: '#dbeafe' },
-  'glp2-tz-10mg':      { cap: '#0f766e', accent: '#14b8a6', liquidTint: '#ccfbf1' },
-  'igf1-lr3-1mg':      { cap: '#b91c1c', accent: '#dc2626', liquidTint: '#fee2e2' },
-  'semaglutide-10mg':  { cap: '#1d4ed8', accent: '#3b82f6', liquidTint: '#dbeafe' },
-  'retatrutide-10mg':  { cap: '#4338ca', accent: '#6366f1', liquidTint: '#e0e7ff' },
-  'hgh-15iu':          { cap: '#0369a1', accent: '#0284c7', liquidTint: '#e0f2fe' },
-  'enclomiphene':      { cap: '#6d28d9', accent: '#8b5cf6', liquidTint: '#ede9fe' },
-  'mk-677':            { cap: '#4338ca', accent: '#6366f1', liquidTint: '#e0e7ff' },
-  'rad-140':           { cap: '#b91c1c', accent: '#ef4444', liquidTint: '#fee2e2' },
-  'semax-selank-spray': { cap: '#0d9488', accent: '#14b8a6', liquidTint: '#ccfbf1' },
-  'bac-water':         { cap: '#2563eb', accent: '#60a5fa', liquidTint: '#eff6ff' },
-};
+// Product data - id, name, subtitle/dosage, category
+const PRODUCTS = [
+  { id: "glp3-rt", name: "GLP-3 RT", dose: "10mg-60mg", cat: "peptides" },
+  { id: "glow-70mg", name: "GLOW", dose: "70mg", cat: "peptides" },
+  { id: "cjc-1295-ipamorelin", name: "CJC-1295 +\nIPAMORELIN", dose: "5MG/5MG", cat: "peptides" },
+  { id: "bpc-157", name: "BPC-157", dose: "5mg-10mg", cat: "peptides" },
+  { id: "cjc-1295-no-dac", name: "CJC-1295\nno DAC", dose: "5MG", cat: "peptides" },
+  { id: "cjc-w-dac", name: "CJC-1295\nw/ DAC", dose: "5MG", cat: "peptides" },
+  { id: "klow-80mg", name: "KLOW", dose: "80MG", cat: "peptides" },
+  { id: "wolverine-10mg", name: "WOLVERINE", dose: "10MG", cat: "peptides" },
+  { id: "tb500-10mg", name: "TB-500", dose: "10MG", cat: "peptides" },
+  { id: "selank-5mg", name: "SELANK", dose: "5MG", cat: "peptides" },
+  { id: "semax", name: "SEMAX", dose: "5mg-10mg", cat: "peptides" },
+  { id: "sermorelin-5mg", name: "SERMORELIN", dose: "5MG", cat: "peptides" },
+  { id: "dsip-5mg", name: "DSIP", dose: "5MG", cat: "peptides" },
+  { id: "epithalon-10mg", name: "EPITHALON", dose: "10MG", cat: "peptides" },
+  { id: "kisspeptin-10mg", name: "KISSPEPTIN", dose: "10MG", cat: "peptides" },
+  { id: "ghk-cu", name: "GHK-Cu", dose: "50mg-100mg", cat: "peptides" },
+  { id: "ipamorelin-10mg", name: "IPAMORELIN", dose: "10MG", cat: "peptides" },
+  { id: "mt2-10mg", name: "MELANOTAN II", dose: "10MG", cat: "peptides" },
+  { id: "mots-c-10mg", name: "MOTS-c", dose: "10MG", cat: "peptides" },
+  { id: "nad-500mg", name: "NAD+", dose: "500MG", cat: "peptides" },
+  { id: "aod-9604-5mg", name: "AOD 9604", dose: "5MG", cat: "peptides" },
+  { id: "cagrilintide-10mg", name: "CAGRILINTIDE", dose: "10MG", cat: "peptides" },
+  { id: "tesamorelin-10mg", name: "TESAMORELIN", dose: "10MG", cat: "peptides" },
+  { id: "glp2-tz-10mg", name: "GLP2-TZ\nTIRZEPATIDE", dose: "10MG", cat: "peptides" },
+  { id: "igf1-lr3-1mg", name: "IGF1-LR3", dose: "1MG", cat: "peptides" },
+  { id: "semaglutide-10mg", name: "SEMAGLUTIDE", dose: "10MG", cat: "peptides" },
+  { id: "retatrutide-10mg", name: "RETATRUTIDE", dose: "10MG", cat: "peptides" },
+  { id: "hgh-15iu", name: "HGH", dose: "15IU", cat: "peptides" },
+  { id: "enclomiphene", name: "ENCLOMIPHENE", dose: "Capsules", cat: "capsules" },
+  { id: "mk-677", name: "MK-677", dose: "Capsules", cat: "capsules" },
+  { id: "rad-140", name: "RAD-140", dose: "30ct Capsules", cat: "capsules" },
+  { id: "semax-selank-spray", name: "SEMAX/SELANK\nNASAL SPRAY", dose: "Nasal Spray", cat: "nasal-sprays" },
+  { id: "bac-water", name: "BACTERIOSTATIC\nWATER", dose: "Sterile Solution", cat: "accessories" },
+];
 
-function generateRealisticVial(product) {
-  const c = PRODUCT_COLORS[product.id] || { cap: '#1e40af', accent: '#2563eb', liquidTint: '#dbeafe' };
-  const id = product.id.replace(/[^a-z0-9]/g, '');
+function generateVialSVG(product) {
+  const { name, dose } = product;
+  const lines = name.split('\n');
+  const nameSize = lines[0].length > 10 ? 28 : (lines.length > 1 ? 30 : 36);
   
-  const name = product.name;
-  const subtitle = product.subtitle || '';
-  const dosage = product.specs?.quantity || (product.variants ? product.variants.map(v => v.label).join(' / ') : '');
-  const purity = product.specs?.purity || '>99%';
-  
-  // Split name for label
-  const nameLines = [];
-  if (name.length > 14) {
-    const mid = Math.ceil(name.length / 2);
-    const spaceIdx = name.lastIndexOf(' ', mid);
-    if (spaceIdx > 3) {
-      nameLines.push(name.substring(0, spaceIdx));
-      nameLines.push(name.substring(spaceIdx + 1));
-    } else {
-      nameLines.push(name);
-    }
+  // Build name text elements
+  let nameText = '';
+  if (lines.length === 1) {
+    nameText = `<text x="200" y="342" font-family="Arial Black, Arial, sans-serif" font-size="${nameSize}" font-weight="900" fill="#1a1a1a" text-anchor="middle">${lines[0]}</text>`;
   } else {
-    nameLines.push(name);
+    nameText = `<text x="200" y="328" font-family="Arial Black, Arial, sans-serif" font-size="${nameSize}" font-weight="900" fill="#1a1a1a" text-anchor="middle">${lines[0]}</text>
+    <text x="200" y="${328 + nameSize + 4}" font-family="Arial Black, Arial, sans-serif" font-size="${nameSize}" font-weight="900" fill="#1a1a1a" text-anchor="middle">${lines[1]}</text>`;
   }
 
-  const isCapsule = product.category === 'capsules';
-  const isSpray = product.id === 'semax-selank-spray';
-  const isWater = product.id === 'bac-water';
-  
-  if (isCapsule) return generateRealisticBottle(product, c, id, nameLines, dosage, purity);
-  if (isSpray) return generateRealisticSpray(product, c, id);
-  
-  // Vial dimensions
-  const vW = 68, vH = 180;
-  const vX = 150 - vW/2, vY = 115;
-  const capH = 22, crimpH = 6;
-  const capY = vY - capH - crimpH;
-  const labelY = vY + 30, labelH = 105, labelW = vW - 4;
-  const liquidY = vY + vH * 0.35, liquidH = vH * 0.63;
-  const nameSize = nameLines.length > 1 ? 11 : (name.length > 12 ? 11 : 14);
+  const doseY = lines.length > 1 ? 328 + nameSize * 2 + 10 : 375;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
-<defs>
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+  <defs>
+    <!-- Dark background gradient -->
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#0f0f12"/>
+      <stop offset="100%" stop-color="#050507"/>
+    </radialGradient>
+    <!-- Glass body gradient -->
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(180,200,210,0.15)"/>
+      <stop offset="15%" stop-color="rgba(220,235,240,0.08)"/>
+      <stop offset="40%" stop-color="rgba(200,215,225,0.05)"/>
+      <stop offset="60%" stop-color="rgba(200,215,225,0.05)"/>
+      <stop offset="85%" stop-color="rgba(220,235,240,0.08)"/>
+      <stop offset="100%" stop-color="rgba(180,200,210,0.15)"/>
+    </linearGradient>
+    <!-- Glass highlight left -->
+    <linearGradient id="glassHL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.25)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+    <!-- Glass highlight right -->
+    <linearGradient id="glassHR" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.12)"/>
+    </linearGradient>
+    <!-- Silver cap gradient -->
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8e8e8"/>
+      <stop offset="20%" stop-color="#c0c0c0"/>
+      <stop offset="50%" stop-color="#d8d8d8"/>
+      <stop offset="80%" stop-color="#a8a8a8"/>
+      <stop offset="100%" stop-color="#b8b8b8"/>
+    </linearGradient>
+    <!-- Gold cap gradient -->
+    <linearGradient id="goldCap" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4b07a"/>
+      <stop offset="50%" stop-color="#c4a060"/>
+      <stop offset="100%" stop-color="#b89050"/>
+    </linearGradient>
+    <!-- Label gradient -->
+    <linearGradient id="label" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d4b882"/>
+      <stop offset="50%" stop-color="#c8a870"/>
+      <stop offset="100%" stop-color="#bfa068"/>
+    </linearGradient>
+    <!-- Reflection gradient -->
+    <linearGradient id="reflect" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(180,200,210,0.08)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </linearGradient>
+  </defs>
+
   <!-- Background -->
-  <radialGradient id="rbg${id}" cx="50%" cy="45%" r="65%">
-    <stop offset="0%" stop-color="#141e30"/>
-    <stop offset="100%" stop-color="#0a0f1a"/>
-  </radialGradient>
+  <rect width="400" height="500" fill="url(#bg)"/>
   
-  <!-- Glass body gradient -->
-  <linearGradient id="glass${id}" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="#b8c5d4" stop-opacity="0.35"/>
-    <stop offset="15%" stop-color="#e8edf2" stop-opacity="0.12"/>
-    <stop offset="35%" stop-color="#f8fafc" stop-opacity="0.06"/>
-    <stop offset="50%" stop-color="#f8fafc" stop-opacity="0.04"/>
-    <stop offset="65%" stop-color="#f8fafc" stop-opacity="0.06"/>
-    <stop offset="85%" stop-color="#e8edf2" stop-opacity="0.12"/>
-    <stop offset="100%" stop-color="#b8c5d4" stop-opacity="0.3"/>
-  </linearGradient>
-  
-  <!-- Glass inner shine -->
-  <linearGradient id="shine${id}" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="white" stop-opacity="0"/>
-    <stop offset="18%" stop-color="white" stop-opacity="0.25"/>
-    <stop offset="22%" stop-color="white" stop-opacity="0.08"/>
-    <stop offset="100%" stop-color="white" stop-opacity="0"/>
-  </linearGradient>
+  <!-- Subtle floor reflection line -->
+  <ellipse cx="200" cy="460" rx="120" ry="8" fill="rgba(255,255,255,0.03)"/>
 
-  <!-- Liquid -->
-  <linearGradient id="liq${id}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="${c.liquidTint}" stop-opacity="0.2"/>
-    <stop offset="40%" stop-color="${c.accent}" stop-opacity="0.12"/>
-    <stop offset="100%" stop-color="${c.accent}" stop-opacity="0.25"/>
-  </linearGradient>
-  
-  <!-- Flip-off cap -->
-  <linearGradient id="cap${id}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="${c.cap}" stop-opacity="0.95"/>
-    <stop offset="40%" stop-color="${c.cap}"/>
-    <stop offset="100%" stop-color="${c.cap}" stop-opacity="0.8"/>
-  </linearGradient>
-  <linearGradient id="caphi${id}" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="white" stop-opacity="0"/>
-    <stop offset="25%" stop-color="white" stop-opacity="0.25"/>
-    <stop offset="50%" stop-color="white" stop-opacity="0.08"/>
-    <stop offset="100%" stop-color="white" stop-opacity="0"/>
-  </linearGradient>
-  
-  <!-- Aluminum crimp -->
-  <linearGradient id="crimp${id}" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="#a0a8b0"/>
-    <stop offset="20%" stop-color="#d4dae0"/>
-    <stop offset="40%" stop-color="#c8cfd6"/>
-    <stop offset="60%" stop-color="#d8dee4"/>
-    <stop offset="80%" stop-color="#c0c8d0"/>
-    <stop offset="100%" stop-color="#a0a8b0"/>
-  </linearGradient>
-
-  <!-- Label -->
-  <linearGradient id="lbl${id}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#fcfcfc"/>
-    <stop offset="100%" stop-color="#f2f2f2"/>
-  </linearGradient>
-  
-  <!-- Shadows & filters -->
-  <filter id="vshadow${id}">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
-    <feOffset dy="8"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
-    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-  <filter id="ishadow${id}">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
-    <feOffset dy="1"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.15"/></feComponentTransfer>
-    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-
-  <clipPath id="vclip${id}">
-    <rect x="${vX}" y="${vY}" width="${vW}" height="${vH}" rx="4"/>
-  </clipPath>
-</defs>
-
-<!-- Background -->
-<rect width="300" height="400" fill="url(#rbg${id})"/>
-
-<!-- Subtle floor reflection -->
-<ellipse cx="150" cy="340" rx="60" ry="12" fill="white" opacity="0.02"/>
-<ellipse cx="150" cy="338" rx="45" ry="6" fill="${c.accent}" opacity="0.04"/>
-
-<!-- Main vial group -->
-<g filter="url(#vshadow${id})">
-  
-  <!-- === FLIP-OFF CAP === -->
-  <rect x="${150 - 16}" y="${capY}" width="32" height="${capH}" rx="4" fill="url(#cap${id})"/>
-  <rect x="${150 - 16}" y="${capY}" width="32" height="${capH}" rx="4" fill="url(#caphi${id})"/>
-  <!-- Cap top highlight -->
-  <rect x="${150 - 14}" y="${capY + 2}" width="28" height="3" rx="1.5" fill="white" opacity="0.2"/>
-  <!-- Cap ridge lines -->
-  <line x1="${150 - 14}" y1="${capY + capH - 3}" x2="${150 + 14}" y2="${capY + capH - 3}" stroke="black" stroke-opacity="0.15" stroke-width="0.5"/>
-
-  <!-- === ALUMINUM CRIMP === -->
-  <rect x="${vX - 1}" y="${vY - crimpH}" width="${vW + 2}" height="${crimpH + 4}" rx="2" fill="url(#crimp${id})"/>
-  <!-- Crimp texture lines -->
-  ${Array.from({length: 8}, (_, i) => {
-    const x = vX + 4 + i * ((vW - 4) / 8);
-    return `<line x1="${x}" y1="${vY - crimpH + 1}" x2="${x}" y2="${vY - 1}" stroke="white" stroke-opacity="0.15" stroke-width="0.4"/>`;
-  }).join('\n  ')}
-  <!-- Crimp bottom edge -->
-  <rect x="${vX}" y="${vY - 1}" width="${vW}" height="2" rx="1" fill="#b0b8c0"/>
-
-  <!-- === GLASS BODY === -->
-  <rect x="${vX}" y="${vY}" width="${vW}" height="${vH}" rx="4" fill="url(#glass${id})" stroke="white" stroke-opacity="0.08" stroke-width="0.5"/>
-  
-  <!-- Liquid fill (clipped to vial) -->
-  <g clip-path="url(#vclip${id})">
-    <rect x="${vX}" y="${liquidY}" width="${vW}" height="${liquidH + 5}" fill="url(#liq${id})"/>
-    <!-- Liquid surface meniscus -->
-    <ellipse cx="150" cy="${liquidY}" rx="${vW/2 - 2}" ry="3" fill="${c.accent}" opacity="0.08"/>
-  </g>
-  
-  <!-- Glass shine (left edge) -->
-  <rect x="${vX}" y="${vY}" width="${vW}" height="${vH}" rx="4" fill="url(#shine${id})"/>
-  
-  <!-- Secondary reflection (right) -->
-  <rect x="${vX + vW - 12}" y="${vY + 5}" width="4" height="${vH - 15}" rx="2" fill="white" opacity="0.06"/>
-  
-  <!-- Edge highlight left -->
-  <rect x="${vX + 2}" y="${vY + 8}" width="1.5" height="${vH - 20}" rx="0.75" fill="white" opacity="0.12"/>
-
-  <!-- === LABEL === -->
-  <g filter="url(#ishadow${id})">
-    <rect x="${vX + 2}" y="${labelY}" width="${labelW}" height="${labelH}" rx="2" fill="url(#lbl${id})"/>
-    
-    <!-- Label border accent -->
-    <rect x="${vX + 2}" y="${labelY}" width="${labelW}" height="3" rx="1" fill="${c.accent}"/>
-    
-    <!-- 818 LABS brand -->
-    <text x="150" y="${labelY + 20}" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="8.5" font-weight="900" fill="#111" letter-spacing="3">818 LABS</text>
-    
-    <!-- Thin divider -->
-    <line x1="${vX + 12}" y1="${labelY + 26}" x2="${vX + labelW - 10}" y2="${labelY + 26}" stroke="${c.accent}" stroke-width="0.8" stroke-opacity="0.6"/>
-    
-    <!-- Product name -->
-    ${nameLines.map((line, i) => 
-      `<text x="150" y="${labelY + 42 + i * 15}" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="${nameSize}" font-weight="800" fill="${c.cap}">${escapeXml(line)}</text>`
-    ).join('\n    ')}
-    
-    <!-- Subtitle / blend info -->
-    ${subtitle ? `<text x="150" y="${labelY + 42 + nameLines.length * 15 + 2}" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="5.5" font-weight="500" fill="#777">${escapeXml(subtitle)}</text>` : ''}
-    
-    <!-- Dosage -->
-    <text x="150" y="${labelY + 42 + nameLines.length * 15 + (subtitle ? 14 : 4)}" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="8" font-weight="700" fill="#444">${escapeXml(dosage)}</text>
-    
-    <!-- Purity badge -->
-    <rect x="${150 - 22}" y="${labelY + labelH - 20}" width="44" height="13" rx="6.5" fill="${c.cap}"/>
-    <text x="150" y="${labelY + labelH - 11}" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="6.5" font-weight="700" fill="white" letter-spacing="0.5">${purity} PURE</text>
-    
-    <!-- Research use text -->
-    <text x="150" y="${labelY + labelH - 3}" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="4" font-weight="500" fill="#999" letter-spacing="0.8">FOR RESEARCH USE ONLY</text>
+  <!-- Vial reflection (flipped, faded) -->
+  <g opacity="0.08" transform="translate(0,920) scale(1,-1)">
+    <rect x="145" y="200" width="110" height="240" rx="8" fill="rgba(160,180,190,0.3)"/>
   </g>
 
-  <!-- Glass rim at bottom -->
-  <rect x="${vX}" y="${vY + vH - 2}" width="${vW}" height="2" rx="1" fill="white" opacity="0.06"/>
-</g>
+  <!-- VIAL BODY -->
+  <!-- Main glass body -->
+  <rect x="145" y="200" width="110" height="240" rx="8" fill="url(#glass)" stroke="rgba(180,200,210,0.12)" stroke-width="1"/>
+  
+  <!-- Glass left highlight -->
+  <rect x="147" y="202" width="15" height="236" rx="6" fill="url(#glassHL)"/>
+  
+  <!-- Glass right highlight -->
+  <rect x="238" y="202" width="15" height="236" rx="6" fill="url(#glassHR)"/>
+  
+  <!-- Glass bottom curve -->
+  <ellipse cx="200" cy="438" rx="55" ry="6" fill="rgba(180,200,210,0.08)"/>
+
+  <!-- Neck taper -->
+  <path d="M155,200 L155,185 Q155,175 165,170 L235,170 Q245,175 245,185 L245,200" fill="url(#glass)" stroke="rgba(180,200,210,0.1)" stroke-width="0.5"/>
+
+  <!-- CRIMP CAP (silver aluminum) -->
+  <rect x="155" y="155" width="90" height="20" rx="3" fill="url(#silver)"/>
+  <!-- Crimp cap ridges -->
+  <line x1="160" y1="170" x2="160" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="170" y1="170" x2="170" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="180" y1="170" x2="180" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="190" y1="170" x2="190" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="200" y1="170" x2="200" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="210" y1="170" x2="210" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="220" y1="170" x2="220" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="230" y1="170" x2="230" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <line x1="240" y1="170" x2="240" y2="175" stroke="rgba(150,150,150,0.4)" stroke-width="0.5"/>
+  <!-- Cap highlight -->
+  <rect x="155" y="155" width="90" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
+
+  <!-- FLIP-OFF CAP (gold/beige) -->
+  <rect x="168" y="140" width="64" height="18" rx="6" fill="url(#goldCap)"/>
+  <rect x="168" y="140" width="64" height="4" rx="3" fill="rgba(255,255,255,0.15)"/>
+
+  <!-- LABEL -->
+  <rect x="150" y="265" width="100" height="160" rx="2" fill="url(#label)"/>
+  
+  <!-- Label text: 818 LABS -->
+  <text x="200" y="292" font-family="Arial Black, Arial, sans-serif" font-size="18" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="2">818 LABS</text>
+  
+  <!-- Separator line -->
+  <line x1="165" y1="300" x2="235" y2="300" stroke="#1a1a1a" stroke-width="0.5" opacity="0.3"/>
+  
+  <!-- Product name -->
+  ${nameText}
+  
+  <!-- Dose -->
+  <text x="200" y="${doseY}" font-family="Arial, sans-serif" font-size="14" fill="#3a3a3a" text-anchor="middle">${dose}</text>
+  
+  <!-- Purity -->
+  <text x="200" y="${doseY + 18}" font-family="Arial, sans-serif" font-size="12" fill="#3a3a3a" text-anchor="middle">99% Purity</text>
+  
+  <!-- Research use only -->
+  <text x="200" y="${doseY + 34}" font-family="Arial, sans-serif" font-size="10" fill="#555555" text-anchor="middle">For Research Use Only</text>
 </svg>`;
 }
 
-function generateRealisticBottle(product, c, id, nameLines, dosage, purity) {
-  const nameSize = nameLines.length > 1 ? 11 : (product.name.length > 12 ? 11 : 13);
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
-<defs>
-  <radialGradient id="rbg${id}" cx="50%" cy="45%" r="65%">
-    <stop offset="0%" stop-color="#141e30"/>
-    <stop offset="100%" stop-color="#0a0f1a"/>
-  </radialGradient>
-  <linearGradient id="bot${id}" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="#1a1a1a"/>
-    <stop offset="20%" stop-color="#333"/>
-    <stop offset="40%" stop-color="#3a3a3a"/>
-    <stop offset="60%" stop-color="#333"/>
-    <stop offset="80%" stop-color="#2a2a2a"/>
-    <stop offset="100%" stop-color="#1a1a1a"/>
-  </linearGradient>
-  <linearGradient id="bcap${id}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#444"/>
-    <stop offset="40%" stop-color="#2a2a2a"/>
-    <stop offset="100%" stop-color="#1a1a1a"/>
-  </linearGradient>
-  <linearGradient id="blbl${id}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#fcfcfc"/>
-    <stop offset="100%" stop-color="#f0f0f0"/>
-  </linearGradient>
-  <linearGradient id="bshine${id}" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="white" stop-opacity="0"/>
-    <stop offset="15%" stop-color="white" stop-opacity="0.12"/>
-    <stop offset="25%" stop-color="white" stop-opacity="0.04"/>
-    <stop offset="100%" stop-color="white" stop-opacity="0"/>
-  </linearGradient>
-  <filter id="bshadow${id}">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
-    <feOffset dy="8"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
-    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-  <filter id="bishadow${id}">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
-    <feOffset dy="1"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.15"/></feComponentTransfer>
-    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-</defs>
-<rect width="300" height="400" fill="url(#rbg${id})"/>
-<ellipse cx="150" cy="340" rx="55" ry="8" fill="${c.accent}" opacity="0.04"/>
-
-<g filter="url(#bshadow${id})">
+function generateCapsuleSVG(product) {
+  const { name, dose } = product;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#0f0f12"/>
+      <stop offset="100%" stop-color="#050507"/>
+    </radialGradient>
+    <linearGradient id="bottle" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="15%" stop-color="#2a2a2a"/>
+      <stop offset="50%" stop-color="#333333"/>
+      <stop offset="85%" stop-color="#2a2a2a"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+    <linearGradient id="label" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d4b882"/>
+      <stop offset="50%" stop-color="#c8a870"/>
+      <stop offset="100%" stop-color="#bfa068"/>
+    </linearGradient>
+    <linearGradient id="cap" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="50%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#111111"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bg)"/>
+  <ellipse cx="200" cy="458" rx="100" ry="6" fill="rgba(255,255,255,0.03)"/>
+  
+  <!-- Bottle body -->
+  <rect x="140" y="190" width="120" height="260" rx="10" fill="url(#bottle)" stroke="rgba(60,60,60,0.5)" stroke-width="1"/>
+  <!-- Highlight -->
+  <rect x="142" y="192" width="12" height="256" rx="8" fill="rgba(255,255,255,0.06)"/>
+  <rect x="246" y="192" width="8" height="256" rx="6" fill="rgba(255,255,255,0.03)"/>
+  
+  <!-- Bottle neck -->
+  <rect x="170" y="170" width="60" height="25" rx="4" fill="url(#bottle)" stroke="rgba(60,60,60,0.3)" stroke-width="0.5"/>
+  
   <!-- Cap -->
-  <rect x="127" y="82" width="46" height="28" rx="6" fill="url(#bcap${id})"/>
-  <rect x="130" y="78" width="40" height="8" rx="4" fill="#333"/>
+  <rect x="165" y="140" width="70" height="35" rx="6" fill="url(#cap)"/>
+  <rect x="165" y="140" width="70" height="5" rx="3" fill="rgba(255,255,255,0.08)"/>
   <!-- Cap ridges -->
-  ${Array.from({length: 12}, (_, i) => {
-    const x = 129 + i * 3.5;
-    return `<line x1="${x}" y1="84" x2="${x}" y2="108" stroke="white" stroke-opacity="0.06" stroke-width="0.4"/>`;
-  }).join('\n  ')}
-  <rect x="130" y="78" width="40" height="3" rx="1.5" fill="white" opacity="0.08"/>
-  
-  <!-- Neck -->
-  <rect x="132" y="108" width="36" height="10" rx="2" fill="#2a2a2a" stroke="#333" stroke-width="0.5"/>
-  
-  <!-- Bottle body -->
-  <rect x="112" y="116" width="76" height="185" rx="8" fill="url(#bot${id})" stroke="#444" stroke-width="0.5"/>
-  <rect x="112" y="116" width="76" height="185" rx="8" fill="url(#bshine${id})"/>
-  
-  <!-- Label -->
-  <g filter="url(#bishadow${id})">
-    <rect x="116" y="148" width="68" height="115" rx="3" fill="url(#blbl${id})"/>
-    <rect x="116" y="148" width="68" height="3" rx="1" fill="${c.accent}"/>
-    
-    <text x="150" y="170" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="8.5" font-weight="900" fill="#111" letter-spacing="3">818 LABS</text>
-    <line x1="126" y1="176" x2="174" y2="176" stroke="${c.cap}" stroke-width="0.8" stroke-opacity="0.6"/>
-    
-    ${nameLines.map((line, i) => 
-      `<text x="150" y="${192 + i * 15}" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="${nameSize}" font-weight="800" fill="${c.cap}">${escapeXml(line)}</text>`
-    ).join('\n    ')}
-    
-    <text x="150" y="225" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="7" font-weight="600" fill="#666">CAPSULES</text>
-    
-    <rect x="130" y="236" width="40" height="12" rx="6" fill="${c.cap}"/>
-    <text x="150" y="244.5" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="6.5" font-weight="700" fill="white">${purity} PURE</text>
-    
-    <text x="150" y="259" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="4" font-weight="500" fill="#999" letter-spacing="0.8">FOR RESEARCH USE ONLY</text>
+  <g opacity="0.15">
+    ${Array.from({length: 12}, (_, i) => `<line x1="${170 + i*5}" y1="145" x2="${170 + i*5}" y2="172" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>`).join('\n    ')}
   </g>
   
-  <!-- Edge highlight -->
-  <rect x="114" y="120" width="2" height="175" rx="1" fill="white" opacity="0.06"/>
-</g>
+  <!-- Label -->
+  <rect x="148" y="260" width="104" height="160" rx="2" fill="url(#label)"/>
+  <text x="200" y="290" font-family="Arial Black, Arial, sans-serif" font-size="18" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="2">818 LABS</text>
+  <line x1="163" y1="298" x2="237" y2="298" stroke="#1a1a1a" stroke-width="0.5" opacity="0.3"/>
+  <text x="200" y="335" font-family="Arial Black, Arial, sans-serif" font-size="${name.length > 10 ? 24 : 30}" font-weight="900" fill="#1a1a1a" text-anchor="middle">${name}</text>
+  <text x="200" y="365" font-family="Arial, sans-serif" font-size="14" fill="#3a3a3a" text-anchor="middle">${dose}</text>
+  <text x="200" y="383" font-family="Arial, sans-serif" font-size="12" fill="#3a3a3a" text-anchor="middle">99% Purity</text>
+  <text x="200" y="400" font-family="Arial, sans-serif" font-size="10" fill="#555555" text-anchor="middle">For Research Use Only</text>
 </svg>`;
 }
 
-function generateRealisticSpray(product, c, id) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
-<defs>
-  <radialGradient id="rbg${id}" cx="50%" cy="45%" r="65%">
-    <stop offset="0%" stop-color="#141e30"/>
-    <stop offset="100%" stop-color="#0a0f1a"/>
-  </radialGradient>
-  <linearGradient id="sbody${id}" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="#d0d0d0"/>
-    <stop offset="15%" stop-color="#f0f0f0"/>
-    <stop offset="30%" stop-color="#fafafa"/>
-    <stop offset="50%" stop-color="#ffffff"/>
-    <stop offset="70%" stop-color="#fafafa"/>
-    <stop offset="85%" stop-color="#f0f0f0"/>
-    <stop offset="100%" stop-color="#d0d0d0"/>
-  </linearGradient>
-  <linearGradient id="sact${id}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#e8e8e8"/>
-    <stop offset="100%" stop-color="#ccc"/>
-  </linearGradient>
-  <filter id="sshadow${id}">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
-    <feOffset dy="8"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
-    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-</defs>
-<rect width="300" height="400" fill="url(#rbg${id})"/>
-<ellipse cx="150" cy="340" rx="50" ry="8" fill="${c.accent}" opacity="0.04"/>
-
-<g filter="url(#sshadow${id})">
-  <!-- Bottle body -->
-  <rect x="122" y="142" width="56" height="160" rx="5" fill="url(#sbody${id})" stroke="#bbb" stroke-width="0.5"/>
+function generateSpraySVG(product) {
+  const { name, dose } = product;
+  const lines = name.split('\n');
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#0f0f12"/>
+      <stop offset="100%" stop-color="#050507"/>
+    </radialGradient>
+    <linearGradient id="sprayBody" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(220,230,235,0.85)"/>
+      <stop offset="20%" stop-color="rgba(240,245,248,0.9)"/>
+      <stop offset="80%" stop-color="rgba(240,245,248,0.9)"/>
+      <stop offset="100%" stop-color="rgba(210,220,225,0.85)"/>
+    </linearGradient>
+    <linearGradient id="label" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d4b882"/>
+      <stop offset="50%" stop-color="#c8a870"/>
+      <stop offset="100%" stop-color="#bfa068"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bg)"/>
+  <ellipse cx="200" cy="458" rx="80" ry="5" fill="rgba(255,255,255,0.03)"/>
   
-  <!-- Actuator/pump mechanism -->
-  <rect x="134" y="108" width="32" height="38" rx="4" fill="url(#sact${id})" stroke="#bbb" stroke-width="0.5"/>
+  <!-- Spray body -->
+  <rect x="160" y="200" width="80" height="250" rx="8" fill="url(#sprayBody)" stroke="rgba(200,210,215,0.3)" stroke-width="1"/>
+  <rect x="162" y="202" width="8" height="246" rx="6" fill="rgba(255,255,255,0.15)"/>
   
-  <!-- Nozzle arm -->
-  <rect x="156" y="112" width="28" height="10" rx="3" fill="#ddd" stroke="#bbb" stroke-width="0.5"/>
-  <circle cx="184" cy="117" r="4" fill="#ccc" stroke="#aaa" stroke-width="0.5"/>
-  <circle cx="184" cy="117" r="1.5" fill="#999"/>
+  <!-- Nozzle base -->
+  <rect x="175" y="175" width="50" height="30" rx="4" fill="rgba(230,235,238,0.9)"/>
   
-  <!-- Actuator top -->
-  <rect x="138" y="104" width="24" height="8" rx="4" fill="#ddd"/>
-  <rect x="140" y="104" width="20" height="3" rx="1.5" fill="white" opacity="0.3"/>
+  <!-- Nozzle tip -->
+  <rect x="210" y="155" width="30" height="12" rx="3" fill="rgba(200,205,210,0.9)"/>
+  <rect x="235" y="158" width="15" height="6" rx="3" fill="rgba(180,185,190,0.9)"/>
   
-  <!-- Label on body -->
-  <rect x="126" y="172" width="48" height="85" rx="2" fill="${c.cap}" opacity="0.9"/>
-  <rect x="126" y="172" width="48" height="2.5" rx="1" fill="white" opacity="0.3"/>
+  <!-- Actuator button -->
+  <rect x="185" y="165" width="30" height="15" rx="4" fill="rgba(200,205,210,0.95)"/>
   
-  <text x="150" y="190" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="6.5" font-weight="900" fill="white" letter-spacing="2">818 LABS</text>
-  <line x1="133" y1="195" x2="167" y2="195" stroke="white" stroke-opacity="0.4" stroke-width="0.5"/>
-  
-  <text x="150" y="210" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="8" font-weight="800" fill="white">Semax/Selank</text>
-  <text x="150" y="222" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="7" font-weight="600" fill="white" opacity="0.85">Nasal Spray</text>
-  
-  <text x="150" y="248" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="4" font-weight="500" fill="white" opacity="0.5" letter-spacing="0.8">RESEARCH USE ONLY</text>
-  
-  <!-- Body reflection -->
-  <rect x="125" y="144" width="5" height="155" rx="2.5" fill="white" opacity="0.12"/>
-  <rect x="133" y="144" width="2" height="140" rx="1" fill="white" opacity="0.05"/>
-</g>
+  <!-- Label -->
+  <rect x="166" y="270" width="68" height="150" rx="2" fill="url(#label)"/>
+  <text x="200" y="295" font-family="Arial Black, Arial, sans-serif" font-size="14" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="1">818 LABS</text>
+  <line x1="175" y1="302" x2="225" y2="302" stroke="#1a1a1a" stroke-width="0.5" opacity="0.3"/>
+  <text x="200" y="325" font-family="Arial Black, Arial, sans-serif" font-size="13" font-weight="900" fill="#1a1a1a" text-anchor="middle">${lines[0]}</text>
+  ${lines[1] ? `<text x="200" y="342" font-family="Arial Black, Arial, sans-serif" font-size="13" font-weight="900" fill="#1a1a1a" text-anchor="middle">${lines[1]}</text>` : ''}
+  <text x="200" y="${lines[1] ? 362 : 350}" font-family="Arial, sans-serif" font-size="11" fill="#3a3a3a" text-anchor="middle">${dose}</text>
+  <text x="200" y="${lines[1] ? 378 : 366}" font-family="Arial, sans-serif" font-size="9" fill="#555555" text-anchor="middle">For Research Use Only</text>
 </svg>`;
 }
 
-// Load & generate
-const PRODUCTS = require('./products.js');
+// Generate all images
 let count = 0;
 for (const product of PRODUCTS) {
-  const svg = generateRealisticVial(product);
-  fs.writeFileSync(path.join(imgDir, `${product.id}.svg`), svg);
+  let svg;
+  if (product.cat === 'capsules') {
+    svg = generateCapsuleSVG(product);
+  } else if (product.cat === 'nasal-sprays') {
+    svg = generateSpraySVG(product);
+  } else {
+    svg = generateVialSVG(product);
+  }
+
+  const filePath = path.join(OUTPUT_DIR, `${product.id}.svg`);
+  fs.writeFileSync(filePath, svg);
   count++;
-  console.log(`✓ ${product.id}.svg`);
+  console.log(`  ✅ ${product.id}.svg`);
 }
-console.log(`\nGenerated ${count} realistic product images`);
+
+console.log(`\nGenerated ${count} product images in ${OUTPUT_DIR}`);

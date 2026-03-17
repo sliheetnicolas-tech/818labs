@@ -1,62 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
-<defs>
-  <radialGradient id="rbgsemaxselankspray" cx="50%" cy="45%" r="65%">
-    <stop offset="0%" stop-color="#141e30"/>
-    <stop offset="100%" stop-color="#0a0f1a"/>
-  </radialGradient>
-  <linearGradient id="sbodysemaxselankspray" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="#d0d0d0"/>
-    <stop offset="15%" stop-color="#f0f0f0"/>
-    <stop offset="30%" stop-color="#fafafa"/>
-    <stop offset="50%" stop-color="#ffffff"/>
-    <stop offset="70%" stop-color="#fafafa"/>
-    <stop offset="85%" stop-color="#f0f0f0"/>
-    <stop offset="100%" stop-color="#d0d0d0"/>
-  </linearGradient>
-  <linearGradient id="sactsemaxselankspray" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#e8e8e8"/>
-    <stop offset="100%" stop-color="#ccc"/>
-  </linearGradient>
-  <filter id="sshadowsemaxselankspray">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
-    <feOffset dy="8"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
-    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-</defs>
-<rect width="300" height="400" fill="url(#rbgsemaxselankspray)"/>
-<ellipse cx="150" cy="340" rx="50" ry="8" fill="#14b8a6" opacity="0.04"/>
-
-<g filter="url(#sshadowsemaxselankspray)">
-  <!-- Bottle body -->
-  <rect x="122" y="142" width="56" height="160" rx="5" fill="url(#sbodysemaxselankspray)" stroke="#bbb" stroke-width="0.5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#0f0f12"/>
+      <stop offset="100%" stop-color="#050507"/>
+    </radialGradient>
+    <linearGradient id="sprayBody" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(220,230,235,0.85)"/>
+      <stop offset="20%" stop-color="rgba(240,245,248,0.9)"/>
+      <stop offset="80%" stop-color="rgba(240,245,248,0.9)"/>
+      <stop offset="100%" stop-color="rgba(210,220,225,0.85)"/>
+    </linearGradient>
+    <linearGradient id="label" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d4b882"/>
+      <stop offset="50%" stop-color="#c8a870"/>
+      <stop offset="100%" stop-color="#bfa068"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bg)"/>
+  <ellipse cx="200" cy="458" rx="80" ry="5" fill="rgba(255,255,255,0.03)"/>
   
-  <!-- Actuator/pump mechanism -->
-  <rect x="134" y="108" width="32" height="38" rx="4" fill="url(#sactsemaxselankspray)" stroke="#bbb" stroke-width="0.5"/>
+  <!-- Spray body -->
+  <rect x="160" y="200" width="80" height="250" rx="8" fill="url(#sprayBody)" stroke="rgba(200,210,215,0.3)" stroke-width="1"/>
+  <rect x="162" y="202" width="8" height="246" rx="6" fill="rgba(255,255,255,0.15)"/>
   
-  <!-- Nozzle arm -->
-  <rect x="156" y="112" width="28" height="10" rx="3" fill="#ddd" stroke="#bbb" stroke-width="0.5"/>
-  <circle cx="184" cy="117" r="4" fill="#ccc" stroke="#aaa" stroke-width="0.5"/>
-  <circle cx="184" cy="117" r="1.5" fill="#999"/>
+  <!-- Nozzle base -->
+  <rect x="175" y="175" width="50" height="30" rx="4" fill="rgba(230,235,238,0.9)"/>
   
-  <!-- Actuator top -->
-  <rect x="138" y="104" width="24" height="8" rx="4" fill="#ddd"/>
-  <rect x="140" y="104" width="20" height="3" rx="1.5" fill="white" opacity="0.3"/>
+  <!-- Nozzle tip -->
+  <rect x="210" y="155" width="30" height="12" rx="3" fill="rgba(200,205,210,0.9)"/>
+  <rect x="235" y="158" width="15" height="6" rx="3" fill="rgba(180,185,190,0.9)"/>
   
-  <!-- Label on body -->
-  <rect x="126" y="172" width="48" height="85" rx="2" fill="#0d9488" opacity="0.9"/>
-  <rect x="126" y="172" width="48" height="2.5" rx="1" fill="white" opacity="0.3"/>
+  <!-- Actuator button -->
+  <rect x="185" y="165" width="30" height="15" rx="4" fill="rgba(200,205,210,0.95)"/>
   
-  <text x="150" y="190" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="6.5" font-weight="900" fill="white" letter-spacing="2">818 LABS</text>
-  <line x1="133" y1="195" x2="167" y2="195" stroke="white" stroke-opacity="0.4" stroke-width="0.5"/>
-  
-  <text x="150" y="210" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="8" font-weight="800" fill="white">Semax/Selank</text>
-  <text x="150" y="222" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="7" font-weight="600" fill="white" opacity="0.85">Nasal Spray</text>
-  
-  <text x="150" y="248" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-size="4" font-weight="500" fill="white" opacity="0.5" letter-spacing="0.8">RESEARCH USE ONLY</text>
-  
-  <!-- Body reflection -->
-  <rect x="125" y="144" width="5" height="155" rx="2.5" fill="white" opacity="0.12"/>
-  <rect x="133" y="144" width="2" height="140" rx="1" fill="white" opacity="0.05"/>
-</g>
+  <!-- Label -->
+  <rect x="166" y="270" width="68" height="150" rx="2" fill="url(#label)"/>
+  <text x="200" y="295" font-family="Arial Black, Arial, sans-serif" font-size="14" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="1">818 LABS</text>
+  <line x1="175" y1="302" x2="225" y2="302" stroke="#1a1a1a" stroke-width="0.5" opacity="0.3"/>
+  <text x="200" y="325" font-family="Arial Black, Arial, sans-serif" font-size="13" font-weight="900" fill="#1a1a1a" text-anchor="middle">SEMAX/SELANK</text>
+  <text x="200" y="342" font-family="Arial Black, Arial, sans-serif" font-size="13" font-weight="900" fill="#1a1a1a" text-anchor="middle">NASAL SPRAY</text>
+  <text x="200" y="362" font-family="Arial, sans-serif" font-size="11" fill="#3a3a3a" text-anchor="middle">Nasal Spray</text>
+  <text x="200" y="378" font-family="Arial, sans-serif" font-size="9" fill="#555555" text-anchor="middle">For Research Use Only</text>
 </svg>
