@@ -1,0 +1,12 @@
+{
+  "name": "818labs",
+  "version": "1.0.0",
+  "description": "818 Labs — Premium Research Peptides",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
